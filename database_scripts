@@ -1,0 +1,11 @@
+
+create database thunder;
+
+use thunder;
+
+create table words(word_id int unsigned NOT NULL auto_increment, word_val varchar(250), primary key (word_id) );
+
+create table urls(url_id int unsigned NOT NULL auto_increment, url_val varchar(2025), primary key (url_id) );
+
+create table words_urls(word int unsigned NOT NULL , url int unsigned NOT NULL, primary key (word,url), foreign key  (word) REFERENCES words(word_id) on delete cascade on update cascade, foreign key (url) references urls(url_id) on delete cascade on update cascade);
+
