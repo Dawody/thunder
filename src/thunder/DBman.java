@@ -43,75 +43,178 @@ public class DBman {
         }
     }
     
-    /**
+    /*****************************************************************************************
+     * schema0:
      * Send queries to database and receive result
      * @param query statements
      * @return query results
      */
-    public ResultSet old_execute(String query,ArrayList<String> words){
-        
+//      public ResultSet old_execute(String query,ArrayList<String> words){
+//     
+//     
+//      if(conn!=null)
+//      {
+//      try {
+//      java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+//     
+//      for(String word : words)
+//      {
+//      mypstm.setString(1,word);
+//      mypstm.addBatch();
+//      }
+//     
+//      mypstm.executeBatch();
+//     
+//     
+//      return myres;
+//     
+//      } catch (SQLException ex) {
+//      Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+//      }
+//     
+//      }
+//     
+//      return null;
+//      }
+     
+    
+    
+    /***********************************************************************************************
+     * schema1: open file database_scripts and run the schemma1 command on mariadb terminal. 
+     * @param query : the query of inserting new row in indexer table
+     * @param elements : all elements of row in indexer table (run command "describe indexer;" in database)
+     * @return : actually i didn't use the return of this function in this case .
+     * 
+     * 
+     * execute_arrdata : this function is responsible for inserting all data into indexer table in database
+     * 
+     */
+    
+    public ResultSet execute_arrdata(String query,ArrayList<Data> elements){
         
         if(conn!=null)
         {
             try {
                 java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
-
+                for(Data element : elements)
+                {
+                    mypstm.setString(1,element.getStem());
+                    mypstm.setString(2,element.getLink());
+                    mypstm.setInt(3, element.getTotal());
+                    mypstm.setString(4,element.getOriginal());
+                    mypstm.setString(5,element.getTag());
+                    mypstm.setInt(6,element.getPosition());
+                    mypstm.addBatch();
+                }
+                mypstm.executeBatch();
+                return myres;
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
+    /***********************************************************************************
+     * schema2:open file database_scripts.
+     * @param query
+     * @param words
+     * @return 
+     * 
+     * each executeBatch function run insertion process into database.
+     * each execute function run selection process from database.
+     * 
+     */
+    
+    public ResultSet executeBatch(String query , ArrayList<String> words){
+        
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
                 for(String word : words)
                 {
                     mypstm.setString(1,word);
                     mypstm.addBatch();
                 }
-                
                 mypstm.executeBatch();
-
-                
-                return myres;
                 
             } catch (SQLException ex) {
                 Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
-        
-        return null;
+        return myres;
+    }
+
+
+    
+    public ResultSet executeBatch(String query , ArrayList<String> words,ArrayList<Integer> numbers){
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+                for(String word : words)
+                {
+                    mypstm.setString(1,word);
+                    mypstm.addBatch();
+                }
+                mypstm.executeBatch();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return myres;
     }
     
     
     
     
-        public ResultSet execute(String query,ArrayList<Data> elements){
-        
+    
+    
+    public ResultSet execute(String query,String word){
         
         if(conn!=null)
         {
             try {
                 java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
-
-                for(Data element : elements)
-                {
-                    mypstm.setString(1,element.getStem());
-                    mypstm.setString(2,element.getLink());
-                    mypstm.setString(3,element.getOriginal());
-                    mypstm.setString(4,element.getTag());
-                    mypstm.setInt(5,element.getPosition());
-                    
-                    mypstm.addBatch();
-                }
                 
-                mypstm.executeBatch();
-
-                
+                mypstm.setString(1,word);
+                myres=mypstm.executeQuery();
                 return myres;
                 
             } catch (SQLException ex) {
                 Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
+        return null;
+    }
+    
+    
+    public ResultSet execute(String query,String word,String link){
         
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+                
+                mypstm.setString(1,word);
+                mypstm.setString(2, link);
+                myres=mypstm.executeQuery();
+                return myres;
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return null;
     }
 
+    
+    
     
     
     
