@@ -14,21 +14,19 @@ package thunder;
  * @author dawod
  */
 
-
-//import Admin.connection;
-//import com.mysql.jdbc.Statement;
-import org.mariadb.jdbc.MariaDbStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class DBman {
     private Connection myconn;
-    private MariaDbStatement mystm;
+    private PreparedStatement mypstm;
     private ResultSet myres;
     private String conn;
     
@@ -36,12 +34,8 @@ public class DBman {
      * Get connection to  database
      */
     public DBman(){
-
-        myconn=null;
-        myres=null;
-        mystm=null;
-        conn="jdbc:mariadb://localhost:3306/thunder";
-        
+        //conn="jdbc:mariadb://localhost:3306/thunder";
+        conn="jdbc:mariadb://localhost:3306/thunder?useServerPrepStmts=false&rewriteBatchedStatements=true";
         try {
             myconn = DriverManager.getConnection(conn,"root","dawod@SQL");
         } catch (SQLException ex) {
@@ -54,14 +48,23 @@ public class DBman {
      * @param query statements
      * @return query results
      */
-    public ResultSet execute(String query){
+    public ResultSet old_execute(String query,ArrayList<String> words){
         
         
         if(conn!=null)
         {
             try {
-                mystm = (MariaDbStatement) myconn.createStatement();
-                myres = mystm.executeQuery(query);
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+
+                for(String word : words)
+                {
+                    mypstm.setString(1,word);
+                    mypstm.addBatch();
+                }
+                
+                mypstm.executeBatch();
+
+                
                 return myres;
                 
             } catch (SQLException ex) {
@@ -72,6 +75,43 @@ public class DBman {
         
         return null;
     }
+    
+    
+    
+    
+        public ResultSet execute(String query,ArrayList<Data> elements){
+        
+        
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+
+                for(Data element : elements)
+                {
+                    mypstm.setString(1,element.getStem());
+                    mypstm.setString(2,element.getLink());
+                    mypstm.setString(3,element.getOriginal());
+                    mypstm.setString(4,element.getTag());
+                    mypstm.setInt(5,element.getPosition());
+                    
+                    mypstm.addBatch();
+                }
+                
+                mypstm.executeBatch();
+
+                
+                return myres;
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
+        return null;
+    }
+
     
     
     
