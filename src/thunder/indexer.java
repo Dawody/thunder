@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,10 @@ import org.tartarus.snowball.ext.englishStemmer;
  * @author dawod
  */
 public class indexer {
+    ResultSet res;
     int counter=0;
     Query q = new Query();
-    List<Data> dataElement = new ArrayList<>();
+    List<Data> dataElement = new ArrayList<Data>();
     String filePath="src/dataset/";
     File directory = new File(filePath);
     File [] files = directory.listFiles();
@@ -39,8 +41,9 @@ public class indexer {
     
     /**
      * needs:
-     * I need stooping removing function
-     * check that the new word is unique in the database.
+     * I need HTML parsing module
+     * I need stooping removing module
+     * check that the new word is unique in the database --may be not needed.
      *
      * ____________________________________________________________________
      *
@@ -56,6 +59,7 @@ public class indexer {
      * till now i am only save all words i catch even if repeated in the file or in the database!
      */
     public void indexFiles(){
+        dataElement.clear();
 
         for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory
             if(files[i].isFile()){
@@ -72,14 +76,11 @@ public class indexer {
                             small_word = word.toLowerCase();
                             stem_word = stemmer(small_word);
                             all_words.add(stem_word);
-                            dataElement.add(new Data(stem_word, "http://link.com", small_word, "header", counter));
+                            dataElement.add(new Data(stem_word, "http://link.com",345 ,small_word, "header", counter));
                             
                             counter++;
                                     
-                            //System.out.println("file : "+files[i]+" ----- original : "+word+" --- stemmed : "+stemmer(word));
-                            
-                        //    q.insert_all_word(stem_word,all_words);
-
+                       
                             
                         }
                     }
@@ -91,7 +92,7 @@ public class indexer {
                 }
             }
             else{
-                System.err.println("Dawod : "+files[i]+" is not file!");
+               // System.err.println("Dawod : "+files[i]+" is not file!");
             }
             
         }
@@ -101,23 +102,97 @@ public class indexer {
     
     
     
-//    public void getWords(){
-//        SelectResultSet res;
-//        res =(SelectResultSet) q.get_words();
-//        try {
-//            while(res.next()){
-//                System.out.println(res.getString("word_val"));
-//                
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+
+    
+    
+      /**
+     * This function is responsible for getting Links that contain specific word
+     * @param word : single word either stemmed_word or original_word
+     * @param type : if 0 then word argument is stemmed_word ,else it is original_word
+     * @return List of Links
+     */
+    public ArrayList<String> getLink(String word,int type){
+        
+        res = q.getLinks(word, type);
+        List<String> links =new ArrayList<String>();
+        try {
+            while(res.next()){
+                links.add(res.getString("link"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return (ArrayList<String>) links;
+        
+    }
     
     
     
+     /**
+     * This function is responsible for getting the total number of words in specific Document
+     * @param link : the link of specific Document
+     * @return : number of words in the Document
+     */
+    public int getTotal(String link){
+        res = q.getTotal(link);
+        
+        try {
+            if(res.next())
+                return res.getInt("total");
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
     
     
+    
+       /**
+     * This function is responsible for getting the Tags where i can find specific word in specific Document
+     * @param link: the specific word
+     * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
+     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @return List of Tags where i an find the specific word in the specific Document
+     * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag 
+     */
+    public ArrayList<String> getTags(String link ,String word , int type){
+        res=q.getTags(link, word, type);
+       List<String> tags = new ArrayList<String>();
+        try {
+            while(res.next()){
+                tags.add(res.getString("tag"));
+            }} catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+       return (ArrayList<String>) tags; 
+    }
+    
+    
+    
+     /**
+     * This function is responsible for counting how many times can i find specific word in specific document
+     * @param link : the specific Document
+     * @param word : the specific word that can be either stemmed_word or an original_word
+     * @param type : if 0 then word is stemmed_word else it's an original_word
+     * @return : how many times can i find specific word in specific document
+     */
+    public int getCount(String link , String word , int type){
+        res = q.getCount(link,word,type);
+        
+        try {
+            if(res.next())
+                return res.getInt("count(*)");
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    
+
     
     
     
@@ -126,8 +201,8 @@ public class indexer {
     
     
     /**
-     * this function must take single word . no multiple words
-     * @param word
+     * this function must take single word , no multiple words.
+     * @param word : original word
      * @return word after stemming
      */
     public String stemmer(String word){
