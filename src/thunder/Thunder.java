@@ -7,6 +7,8 @@ package thunder;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  *
@@ -21,12 +23,14 @@ public class Thunder {
         // TODO code application logic here
         indexer indx = new indexer();
 //TEST insertion
-//        for(int i=0 ; i<1;i++){
-//            indx.indexFiles();
-//            System.out.println("counter = "+i);
-//
-//        }
-//
+        for(int i=0 ; i<1 ; i++){
+            indx.indexFiles();
+            System.out.println("counter = "+i);
+
+        }
+
+
+
 
 //
 //TEST select link where stemmed_word or original_word =some_value
@@ -56,6 +60,7 @@ public class Thunder {
 //    System.out.println("numer of counts in Document for the word is "+indx.getCount("http://link.com","animal",1));
 //    System.out.println("numer of counts in Document for the word is "+indx.getCount("http://link.com","animation",1));
 //    
+
 
 
 
