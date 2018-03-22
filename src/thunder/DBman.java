@@ -100,7 +100,7 @@ public class DBman {
                 {
                     mypstm.setString(1,element.getStem());
                     mypstm.setString(2,element.getLink());
-                    mypstm.setInt(3, element.getTotal());
+                    mypstm.setInt(3, elements.get(elements.size()-1).getPosition());
                     mypstm.setString(4,element.getOriginal());
                     mypstm.setString(5,element.getTag());
                     mypstm.setInt(6,element.getPosition());
