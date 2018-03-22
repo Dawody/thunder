@@ -24,8 +24,7 @@ public class Data {
         this.total=total;
         this.original=original;
         this.tag=tag;
-        this.position=position;
-        
+        this.position=position;    
     }
     
     public String getStem(){
