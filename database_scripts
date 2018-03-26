@@ -1,0 +1,36 @@
+--------------old version---------------------------------------
+##schema0:
+---------
+create database thunder;
+
+use thunder;
+
+create table words(word_id int unsigned NOT NULL auto_increment, word_val varchar(250), primary key (word_id) );
+
+create table urls(url_id int unsigned NOT NULL auto_increment, url_val varchar(2025), primary key (url_id) );
+
+create table words_urls(word int unsigned NOT NULL , url int unsigned NOT NULL, primary key (word,url), foreign key  (word) REFERENCES words(word_id) on delete cascade on update cascade, foreign key (url) references urls(url_id) on delete cascade on update cascade);
+
+---------------------new version-------------------------------
+##schema1:
+--------
+create table indexer(id int unsigned NOT NULL auto_increment, stem varchar(50) not null , link varchar(180) not null, total int unsigned not null , original varchar(50) not null , tag varchar(20) not null , position int unsigned not null , primary key (id) );
+
+
+
+---------------------------------
+##schema2:
+---------
+create table links(id int unsigned NOT NULL auto_increment, link varchar(180) unique ,total int unsigned not null, primary key (id) );
+
+
+create table words(id int unsigned NOT NULL auto_increment, stem varchar(50) unique , primary key (id) );
+
+
+create table existence(id int unsigned NOT NULL auto_increment, stem_id int unsigned not null , link_id int unsigned not null , original varchar(50) not null , tag varchar(20) not null , position int unsigned not null , primary key (id) ,foreign key  (stem_id) REFERENCES words(id) on delete cascade on update cascade, foreign key (link_id) references links(id) on delete cascade on update cascade);
+
+
+
+-----------------------------------------------------------
+
+
