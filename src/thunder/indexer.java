@@ -24,6 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.tartarus.snowball.ext.englishStemmer;
 
 /**
@@ -35,17 +37,19 @@ public class indexer {
     int counter=0;
     Query q = new Query();
     List<Data> dataElement = new ArrayList<Data>();
-    String filePath="src/dataset/";
+    String filePath="documents";
     File directory = new File(filePath);
     File [] files = directory.listFiles();
     BufferedReader br ;
     String line;
+    String body;
+    String head;
     String link;
     String [] words;
     List<String> all_words = new ArrayList<String>();
     String small_word,stem_word,stop_word;
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
-    
+    int files_counter=0;
     public indexer(){
         setStopWordList();
         
@@ -70,13 +74,14 @@ public class indexer {
     
     /**
      * needs:
-     * Tags Detection
+     * Make SURE that parsing is perfect
      * SPEED
      * 
      * ___________________________________________
      * 
      * optimizations:
-     * HTML parsing module. some links and declaring variable lines in script tag still not existed
+     * reading from one file is faster than multiple files in case of small files ONLY!..TRY to make it also for large files
+     * 
      * ____________________________________________________________________
      *
      * this function is responsible for the following
@@ -106,34 +111,61 @@ public class indexer {
                     br = new BufferedReader(new FileReader(files[i]));
                     link = br.readLine();
                     //System.out.println("link is "+link);
-                    while((line = br.readLine())!=null ){ //for each line in the current file
+                    line="";
+                    String textBuffer;
+                    while((textBuffer = br.readLine())!=null )
+                    {
+                        line=line+" "+textBuffer;
+                    }
+                    
+                    { //for each line(i mean the whole document) in the current file
                         String html = line;
                         Document doc = (Document) Jsoup.parse(html);
-                        line = doc.text();
-                        //Test the Jsoup library
-//                        System.out.println("line after barsing : "+line);
-                        line = line.replaceAll("[^a-zA-Z0-9 ]", " ");
+                        body = doc.body().text();
+                        head = doc.head().text();
+                        //Elements ps = doc.select("p");
+                        //line = ps.text();
                         
-                        words = line.split(" ");
+//Test the Jsoup library
+//                        System.out.println("line after barsing : "+line);
+                        body = body.replaceAll("[^a-zA-Z0-9 ]", " ");
+                        head = head.replaceAll("[^a-zA-Z0-9 ]", " ");
+                        
+                        //split and store
+                        words = head.split(" ");
                         for(String word : words ){
                             // in this section , do what you need for indexing the original word
-                            
-                            
                             small_word = word.toLowerCase();
                             stem_word = stemmer(small_word);
                             stem_word = stem_word.replaceAll(" ","");
-                            
                             if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
                                 continue;
 
-                            
                             dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
-                            
-                            counter++;
-                            
-                            
-                            
+                            counter++;    
                         }
+                        
+                        //once again
+                        words = body.split(" ");
+                        for(String word : words ){
+                            // in this section , do what you need for indexing the original word
+                            small_word = word.toLowerCase();
+                            stem_word = stemmer(small_word);
+                            stem_word = stem_word.replaceAll(" ","");
+                            if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
+                                continue;
+
+                            dataElement.add(new Data(stem_word, link ,counter ,small_word, "body", counter));
+                            counter++;    
+                        }
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     }
                     
                 } catch (FileNotFoundException ex) {
@@ -144,8 +176,8 @@ public class indexer {
                 
                 
                 q.insert_all_indexes((ArrayList<Data>) dataElement);
-                System.out.println("Total number of recoreds by this file = "+counter);
-                                
+                System.out.println(files_counter +" Total number of recoreds by this file ("+files[i] +") = "+counter);
+                files_counter++;
             }//the end of the file
         }//the end of the Directory
     }//the end of the indexer
