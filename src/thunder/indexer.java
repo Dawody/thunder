@@ -41,7 +41,7 @@ public class indexer {
     File directory = new File(filePath);
     File [] files = directory.listFiles();
     BufferedReader br ;
-    String line;
+    String line,lines;
     String body;
     String head;
     String link;
@@ -76,12 +76,12 @@ public class indexer {
      * needs:
      * Make SURE that parsing is perfect
      * SPEED
-     * 
+     *
      * ___________________________________________
-     * 
+     *
      * optimizations:
      * reading from one file is faster than multiple files in case of small files ONLY!..TRY to make it also for large files
-     * 
+     *
      * ____________________________________________________________________
      *
      * this function is responsible for the following
@@ -108,65 +108,66 @@ public class indexer {
                 dataElement.clear();
                 
                 try {
+                    
                     br = new BufferedReader(new FileReader(files[i]));
+                    
+                    //extracting the link of the document
                     link = br.readLine();
-                    //System.out.println("link is "+link);
-                    line="";
-                    String textBuffer;
-                    while((textBuffer = br.readLine())!=null )
+                    
+                    //collecting the text from the document line by line
+                    lines="";
+                    while((line = br.readLine())!=null )
                     {
-                        line=line+" "+textBuffer;
+                        lines=lines+" "+line;
                     }
                     
-                    { //for each line(i mean the whole document) in the current file
-                        String html = line;
-                        Document doc = (Document) Jsoup.parse(html);
-                        body = doc.body().text();
-                        head = doc.head().text();
-                        //Elements ps = doc.select("p");
-                        //line = ps.text();
+                    
+                    //parsing the HTML into <head> and <body>
+                    String html = lines;
+                    Document doc = (Document) Jsoup.parse(html);
+                    body = doc.body().text();
+                    head = doc.head().text();
+                    
+                    //replace each non-letter or non-number or non-space into space
+                    //body = body.replaceAll("[^a-zA-Z0-9 ]", " ");
+                    //head = head.replaceAll("[^a-zA-Z0-9 ]", " ");
+                    
+                    //split and store
+                    words = head.split(" ");
+                    for(String word : words ){
+                        // in this section , do what you need for indexing the original word
+                        small_word = word.toLowerCase();
+                        stem_word = stemmer(small_word);
+                        stem_word = stem_word.replaceAll(" ","");
+                        if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
+                            continue;
                         
-//Test the Jsoup library
-//                        System.out.println("line after barsing : "+line);
-                        body = body.replaceAll("[^a-zA-Z0-9 ]", " ");
-                        head = head.replaceAll("[^a-zA-Z0-9 ]", " ");
-                        
-                        //split and store
-                        words = head.split(" ");
-                        for(String word : words ){
-                            // in this section , do what you need for indexing the original word
-                            small_word = word.toLowerCase();
-                            stem_word = stemmer(small_word);
-                            stem_word = stem_word.replaceAll(" ","");
-                            if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
-                                continue;
-
-                            dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
-                            counter++;    
-                        }
-                        
-                        //once again
-                        words = body.split(" ");
-                        for(String word : words ){
-                            // in this section , do what you need for indexing the original word
-                            small_word = word.toLowerCase();
-                            stem_word = stemmer(small_word);
-                            stem_word = stem_word.replaceAll(" ","");
-                            if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
-                                continue;
-
-                            dataElement.add(new Data(stem_word, link ,counter ,small_word, "body", counter));
-                            counter++;    
-                        }
-
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                        dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
+                        counter++;
                     }
+                    
+                    //once again
+                    words = body.split(" ");
+                    for(String word : words ){
+                        // in this section , do what you need for indexing the original word
+                        small_word = word.toLowerCase();
+                        stem_word = stemmer(small_word);
+                        stem_word = stem_word.replaceAll(" ","");
+                        if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
+                            continue;
+                        
+                        dataElement.add(new Data(stem_word, link ,counter ,small_word, "body", counter));
+                        counter++;
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
