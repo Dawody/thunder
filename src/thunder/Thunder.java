@@ -23,6 +23,8 @@ public class Thunder {
         // TODO code application logic here
         indexer indx = new indexer();
 //TEST insertion
+
+
         for(int i=0 ; i<1 ; i++){
             indx.indexFiles();
             System.out.println("counter = "+i);
