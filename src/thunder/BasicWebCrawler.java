@@ -230,14 +230,12 @@ class crawler implements Runnable {
                     String s;
                     if (f.exists()&&BasicWebCrawler.dbman.GetVisited(URL.id)!=-1) {
 //
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/text.html"));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/temp.html"));
                         writer.write(document.toString());
                         writer.close();
 
-
-
                         String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
-                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/text.html")));
+                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/temp.html")));
 
 
                         if (TextToCompare.equals(TextToCompare2)) {
@@ -256,7 +254,7 @@ class crawler implements Runnable {
 
                         }
                     } else {
-                        s="does not exists";
+                        s="does not exist";
 //                        FileWriter writer = new FileWriter(f);
 //                        writer.write(document.toString());
 //                        writer.close();
