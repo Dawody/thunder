@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -32,27 +33,39 @@ import org.tartarus.snowball.ext.englishStemmer;
  *
  * @author dawod
  */
-public class indexer {
+public class indexer implements Runnable{
     ResultSet res;
-    int counter=0;
+    Integer files_counter;
     Query q = new Query();
-    List<Data> dataElement = new ArrayList<Data>();
-    String filePath="documents";
-    File directory = new File(filePath);
-    File [] files = directory.listFiles();
-    BufferedReader br ;
-    String line,lines;
-    String body;
-    String head;
-    String link;
-    String [] words;
-    List<String> all_words = new ArrayList<String>();
-    String small_word,stem_word,stop_word;
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
-    int files_counter=0;
+    Map<Integer,Boolean> linkStatusList = new HashMap<Integer,Boolean>();
+    String stop_word;
+    
+    Query qr = new Query();
+        int counter=0;
+        List<Data> dataElement = new ArrayList<Data>();
+        String filePath="documents";
+        File directory = new File(filePath);
+        File [] files = directory.listFiles();
+        BufferedReader br ;
+        String line,lines;
+        String body;
+        String head;
+        String link;
+        String [] words;
+        String small_word,stem_word;
+    
+    
     public indexer(){
-        setStopWordList();
+        //setStopWordList();
         
+    }
+    
+    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery){
+        setStopWordList();
+        this.linkStatusList = linkStatus;
+        this.files_counter =counter;
+        this.qr = indexQuery;
     }
     
     
@@ -102,8 +115,51 @@ public class indexer {
     public void indexFiles(){
         
         
+        
+        
+        
+        
+        
         for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory
-            if(files[i].isFile()){
+            if(!files[i].isFile())
+            {
+                //if not file : continue
+                continue;
+            }
+            
+            
+            String fileName = files[i].getName();
+            int fileId = Integer.parseInt(fileName.substring(0, fileName.length() - 5));
+            
+            if(linkStatusList.get(fileId)==null)
+            {
+                //if not existed in the link lists : continue
+                continue;
+            }
+                
+            
+            
+            
+            if(linkStatusList.get(fileId)==false)
+            {
+                //if not changed : continue
+                continue;
+            }
+                
+            
+            if(linkStatusList.get(fileId)){
+                synchronized(linkStatusList){
+                    if(!linkStatusList.get(fileId))
+                        continue;
+                    //files_counter++;
+                    System.out.println("worked file : "+fileId);
+                    linkStatusList.put(fileId, false);
+                    
+                }
+                
+                
+                
+                
                 counter=1;
                 dataElement.clear();
                 
@@ -176,11 +232,16 @@ public class indexer {
                 }
                 
                 
-                q.insert_all_indexes((ArrayList<Data>) dataElement);
-                System.out.println(files_counter +" Total number of recoreds by this file ("+files[i] +") = "+counter);
+                //synchronized(files_counter){
+                qr.insert_all_indexes((ArrayList<Data>) dataElement);
                 files_counter++;
+                System.out.println(files_counter +" Total number of recoreds by this file ("+files[i] +") = "+counter);
+                //}
+                
             }//the end of the file
         }//the end of the Directory
+                
+        
     }//the end of the indexer
     
     
@@ -210,6 +271,38 @@ public class indexer {
         
     }
     
+    
+    
+    public Map<Integer,Boolean> getLinkStatus(){
+        res = q.getLinkStatus();
+        Map<Integer, Boolean> linkStatus = new HashMap<Integer, Boolean>();
+        boolean status;
+        try {
+            while(res.next()){
+                status = ((res.getInt("changed")==1)? true:false);
+                linkStatus.put(res.getInt("id"), status);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return linkStatus;
+    }
+    
+    
+    public void updateLinkStatus(ArrayList<Integer> linkIds){
+        q.updateLinkStatus(linkIds);
+    }
+    
+    public Integer initFileCounter(){
+        return 0;
+    }
+    
+    
+    public Query initQuery(){
+        return qr;
+    }
     
     
     /**
@@ -300,6 +393,13 @@ public class indexer {
             System.out.println("Failed to stem the word : "+word);
             return "aaaaa";
         }
+        
+    }
+    
+    
+    public void run() {
+        indexFiles();
+        
         
     }
     
