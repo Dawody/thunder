@@ -208,7 +208,7 @@ public class Query {
      */
     public ResultSet getLinkStatus(){
         
-        q = "select id,link,changed from links";
+        q = "select id,link,changed from links where changed=1";
         
         res = dbman.execute(q);
         

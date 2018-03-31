@@ -81,18 +81,18 @@ public class Thunder {
         }
         
         System.out.println("indexing finish..");
-//        ArrayList<Integer> linkIds = new ArrayList<Integer>();
-//        for (Map.Entry<Integer, Boolean> entry : linkStatus.entrySet())
-//        {
-//            if(entry.getValue())
-//            {
-//                linkIds.add(entry.getKey());
-//            }
-//                
-//                            
-//        }
-//        System.out.println("start to update link status..");
-//        indx.updateLinkStatus(linkIds);
+        ArrayList<Integer> linkIds = new ArrayList<Integer>();
+        for (Map.Entry<Integer, Boolean> entry : linkStatus.entrySet())
+        {
+            if(!entry.getValue())
+            {
+                linkIds.add(entry.getKey());
+            }
+                
+                            
+        }
+        System.out.println("start to update link status..");
+        indx.updateLinkStatus(linkIds);
         
 
 

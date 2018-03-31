@@ -212,44 +212,44 @@ public class DBman {
         }
         
         
-        
-                try {
-            stmt = myconn.createStatement();
-            resultset = stmt.executeQuery("SHOW TABLES;");
-
-            if (stmt.execute("SHOW TABLES;")) {
-                resultset = stmt.getResultSet();
-            }
-
-            while (resultset.next()) {
-                System.out.println(resultset.getString("Tables_in_thunder"));
-            }
-        } catch (SQLException ex) {
-            // handle any errors
-            ex.printStackTrace();
-        } finally {
-            // release resources
-//            if (resultset != null) {
+//        
 //                try {
-//                    resultset.close();
-//                } catch (SQLException sqlEx) { }
-//                resultset = null;
+//            stmt = myconn.createStatement();
+//            resultset = stmt.executeQuery("SHOW TABLES;");
+//
+//            if (stmt.execute("SHOW TABLES;")) {
+//                resultset = stmt.getResultSet();
 //            }
 //
-//            if (stmt != null) {
-//                try {
-//                    stmt.close();
-//                } catch (SQLException sqlEx) { }
-//                stmt = null;
+//            while (resultset.next()) {
+//                System.out.println(resultset.getString("Tables_in_thunder"));
 //            }
-
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException sqlEx) { }
-//                conn = null;
-//            }
-        }
+//        } catch (SQLException ex) {
+//            // handle any errors
+//            ex.printStackTrace();
+//        } finally {
+//            // release resources
+////            if (resultset != null) {
+////                try {
+////                    resultset.close();
+////                } catch (SQLException sqlEx) { }
+////                resultset = null;
+////            }
+////
+////            if (stmt != null) {
+////                try {
+////                    stmt.close();
+////                } catch (SQLException sqlEx) { }
+////                stmt = null;
+////            }
+//
+////            if (conn != null) {
+////                try {
+////                    conn.close();
+////                } catch (SQLException sqlEx) { }
+////                conn = null;
+////            }
+//        }
         
         
         

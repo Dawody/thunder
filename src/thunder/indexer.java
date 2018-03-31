@@ -39,6 +39,7 @@ public class indexer implements Runnable{
     Query q = new Query();
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
     Map<Integer,Boolean> linkStatusList = new HashMap<Integer,Boolean>();
+    Map<Integer,String> linkList = new HashMap<Integer,String>();
     String stop_word;
     
     Query qr = new Query();
@@ -66,6 +67,21 @@ public class indexer implements Runnable{
         this.linkStatusList = linkStatus;
         this.files_counter =counter;
         this.qr = indexQuery;
+        
+        
+        
+        
+        res = q.getLinkStatus();
+        try {
+            while(res.next()){
+                linkList.put(res.getInt("id"), res.getString("link"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
     
     
@@ -117,19 +133,24 @@ public class indexer implements Runnable{
         
         
         
-        
-        
+            
         
         for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory
+        
             if(!files[i].isFile())
             {
+        
                 //if not file : continue
                 continue;
             }
             
             
+            
             String fileName = files[i].getName();
             int fileId = Integer.parseInt(fileName.substring(0, fileName.length() - 5));
+ 
+            
+                       
             
             if(linkStatusList.get(fileId)==null)
             {
@@ -138,15 +159,14 @@ public class indexer implements Runnable{
             }
                 
             
-            
-            
+             
             if(linkStatusList.get(fileId)==false)
             {
                 //if not changed : continue
                 continue;
             }
                 
-            
+
             if(linkStatusList.get(fileId)){
                 synchronized(linkStatusList){
                     if(!linkStatusList.get(fileId))
@@ -158,7 +178,8 @@ public class indexer implements Runnable{
                 }
                 
                 
-                
+                        
+
                 
                 counter=1;
                 dataElement.clear();
@@ -168,7 +189,7 @@ public class indexer implements Runnable{
                     br = new BufferedReader(new FileReader(files[i]));
                     
                     //extracting the link of the document
-                    link = br.readLine();
+                    link = linkList.get(fileId);//br.readLine();
                     
                     //collecting the text from the document line by line
                     lines="";
@@ -281,6 +302,7 @@ public class indexer implements Runnable{
             while(res.next()){
                 status = ((res.getInt("changed")==1)? true:false);
                 linkStatus.put(res.getInt("id"), status);
+                linkList.put(res.getInt("id"), res.getString("link"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
