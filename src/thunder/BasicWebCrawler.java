@@ -13,6 +13,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Array;
+import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -60,11 +62,11 @@ public class BasicWebCrawler {
 //        ExecutorService executorService = Executors.newFixedThreadPool(5);
         ExecutorService executorService;
         while (true) {
-            executorService = Executors.newFixedThreadPool(1);
+            executorService = Executors.newFixedThreadPool(10);
 
             dbman.GetQueueAndSet(count, links, urls);
             while (true) {
-                if (counter.get() >= 100) {
+                if (counter.get() >= 40) {
                     break;
                 }
                 if (!urls.isEmpty()) {
@@ -209,22 +211,37 @@ class crawler implements Runnable {
     @Override
     public void run() {
 
+        if(URL.id==-1)
+        {
+            try {
+                URL.id=BasicWebCrawler.dbman.GetLinkId(URL.Name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         if (links.add(URL.Name)) {
             try {
                 if (RobotChecker(URL.Name)) {
+//
 
                     Document document = Jsoup.connect(URL.Name).get();
-//                    if(URL.id==-1)
-//                        URL.id = BasicWebCrawler.dbman.AddLinK(URL.Name);
                     File f = new File("documents/" + URL.id + ".html");
 //                    File f2 = new File("temp.html");
                     String s;
                     if (f.exists()&&BasicWebCrawler.dbman.GetVisited(URL.id)!=-1) {
 //
-                        String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/text.html"));
+                        writer.write(document.toString());
+                        writer.close();
 
-                        if (TextToCompare.equals(document.toString())) {
-//
+
+
+                        String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
+                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/text.html")));
+
+
+                        if (TextToCompare.equals(TextToCompare2)) {
+
                             s="exists and equal";
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, 1);
                         } else {
@@ -232,14 +249,14 @@ class crawler implements Runnable {
 //                            FileWriter writer = new FileWriter(f);
 //                            writer.write(document.toString());
 //                            writer.close();
-                            BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+                           /* BufferedWriter */writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
                             writer.write(document.toString());
                             writer.close();
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
 
                         }
                     } else {
-                        s="does not exist";
+                        s="does not exists";
 //                        FileWriter writer = new FileWriter(f);
 //                        writer.write(document.toString());
 //                        writer.close();
@@ -250,8 +267,9 @@ class crawler implements Runnable {
 
                     }
                     System.out.println(Thread.currentThread().getName() + "  " + URL.Name +"  " + s);
-
+                    PreparedStatement ps = DBman.myconn.prepareStatement("INSERT IGNORE into links (link) VALUES (?)");
                     Elements linksOnPage = document.select("a[href]");
+                    ArrayList<link> temp= new ArrayList<link>();
                     for (Element page : linksOnPage) {
                         Matcher m1 = BasicWebCrawler.pattern.matcher(page.absUrl("href"));
                         if(m1.matches())
@@ -262,10 +280,24 @@ class crawler implements Runnable {
                             y = new StringBuilder(y).replace(m1.start(3), m1.end(3), m1.group(3).toLowerCase()).toString();
                             y = new StringBuilder(y).replace(m1.start(1), m1.end(1), m1.group(1).toLowerCase()).toString();
 //                            System.out.println(y);
-                            int x = BasicWebCrawler.dbman.AddLinK(page.absUrl("href"));
+//                            int x = BasicWebCrawler.dbman.AddLinK(page.absUrl("href"));
 
-                            urls.add(new link(y, x));
+
+                            ps.setString(1,y);
+                            ps.addBatch();
+                            temp.add(new link(y, -1));
                         }
+
+
+
+
+
+                    }
+                    ps.executeBatch();
+                    for (int i=0;i<temp.size();i++)
+                    {
+                        urls.add(temp.get(i));
+
                     }
                     counter.incrementAndGet();
                     BasicWebCrawler.dbman.IncCounter();

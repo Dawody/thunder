@@ -1,10 +1,16 @@
+DROP DATABASE IF EXISTS thunder;
+
+CREATE DATABASE thunder;
+
+use thunder;
+
 CREATE TABLE `counter` (
   `id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `links` (
   `id` int(11) NOT NULL,
-  `link` varchar(10000) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `countdown` int(11) NOT NULL DEFAULT '0',
   `lastchanged` int(11) NOT NULL DEFAULT '0',
   `changed` int(1) NOT NULL DEFAULT '0',
@@ -35,6 +41,11 @@ ALTER TABLE `links`
 
 
 ALTER TABLE `links`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1611;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+ALTER TABLE `links` ADD UNIQUE(`link`);
+
+INSERT INTO `counter` (`id`) VALUES ('0');
+INSERT INTO `links` (`id`, `link`, `countdown`, `lastchanged`, `changed`, `visited`) VALUES (NULL, 'https://www.geeksforgeeks.org/', '0', '0', '0', '-1');
+
 

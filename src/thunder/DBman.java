@@ -60,7 +60,7 @@ public class DBman {
     public int GetVisited(int id) throws Exception {
         Statement stmt;
         ResultSet resultset;
-        stmt = conn.createStatement();
+        stmt = myconn.createStatement();
         resultset = stmt.executeQuery("SELECT visited FROM links WHERE id = " + id);
         resultset.next();
         return resultset.getInt("visited");
@@ -217,7 +217,7 @@ public class DBman {
         //conn="jdbc:mariadb://localhost:3306/thunder";
         conn="jdbc:mariadb://localhost:3306/thunder?useServerPrepStmts=false&rewriteBatchedStatements=true&rewriteBatchUpdates=true&integratedSecurity=true";
         try {
-            myconn = DriverManager.getConnection(conn,"root","dawod@SQL");
+            myconn = DriverManager.getConnection(conn,"root","");
         } catch (SQLException ex) {
             Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
         }
