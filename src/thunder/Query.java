@@ -35,14 +35,14 @@ public class Query {
     
     
     /************************************************************************************************
-     * schema2 : in this schema i try to minimize the redundancy by splitting the data into 3 tables 
-     *              but i found that it will be more difficult in handling 
+     * schema2 : in this schema i try to minimize the redundancy by splitting the data into 3 tables
+     *              but i found that it will be more difficult in handling
      *              and it's speed will still as the speed of schema1
      *              it's more complex and has many corner cases.
      * @param words
      * @return
      */
-      
+    
 //    public boolean insert_all_words(ArrayList<String> words){
 //        q = "insert ignore into words (stem) values (?)";
 //        try{
@@ -51,16 +51,16 @@ public class Query {
 //            System.err.println("Dawod : Problem in dbman.execute(q) function");
 //            return false;
 //        }
-//        
-//        
+//
+//
 //        return true;
 //    }
-//    
-//    
-//    
-//    
+//
+//
+//
+//
 //    public boolean excute_batch(ArrayList<String> links, ArrayList<int> totals){
-//        
+//
 //        q = "insert into links (link,total) values (?,?)";
 //        try{
 //            dbman.executeBatch(q,links,totals);
@@ -68,16 +68,16 @@ public class Query {
 //            System.err.println("Dawod : Problem in dbman.execute(q) function");
 //            return false;
 //        }
-//        
+//
 //        return true;
 //    }
-//    
-//    
-//    
-//    
-//    
+//
+//
+//
+//
+//
 //    public boolean insert_all_existences(ArrayList<String> existences){
-//        
+//
 //        q = "insert into existence (stem_id,link_id,original,tag,position) values (?,?,?,?,?)";
 //        try{
 //            dbman.execute(q,existences);
@@ -85,15 +85,15 @@ public class Query {
 //            System.err.println("Dawod : Problem in dbman.execute(q) function");
 //            return false;
 //        }
-//        
+//
 //        return true;
 //    }
-//    
-//    
-//      
+//
+//
+//
 //    public boolean insert(ArrayList<Data> data){
-//        
-//        
+//
+//
 //        return true;
 //    }
     
@@ -139,7 +139,7 @@ public class Query {
      */
     public ResultSet getLinks(String word,int type){
         if(type==0)
-            q = "select DISTINCT(link) from indexer where stem=?";    
+            q = "select DISTINCT(link) from indexer where stem=?";
         else
             q = "select DISTINCT(link) from indexer where original=?";
         
@@ -168,7 +168,7 @@ public class Query {
      * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
      * @param type: if 0 then the word is stemmed_word else its an original_word
      * @return List of Tags where i an find the specific word in the specific Document
-     * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag 
+     * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ResultSet getTags(String link,String word,int type){
         if(type==0)
@@ -202,6 +202,38 @@ public class Query {
     
     
     
+    /**
+     *
+     * @return
+     */
+    public ResultSet getLinkStatus(){
+        
+        q = "select id,link,changed from links";
+        
+        res = dbman.execute(q);
+        
+        return res;
+    }
+    
+    
+    
+    /**
+     *
+     *
+     */
+    public boolean updateLinkStatus(ArrayList<Integer> linkIds){
+        
+        q = "update links set changed=0 where id=?";
+        try{
+            dbman.execute_update_linkStatus(q,linkIds);
+        }catch(Exception e){
+            System.err.println("Dawod : Problem in dbman.update(q) function");
+            
+        }
+        
+        return true;
+    }
+    
     
     
     
@@ -209,8 +241,8 @@ public class Query {
     /*************************************************************************************************
      * schema0: very slow 20record/second
      *          while schema1&2 has about 50,000 record/second speed.
-     */ 
-      
+     */
+    
     
 //    public boolean insert_word(String word){
 //        //q = "insert into words values(\"\",\""+word+"\");";
@@ -222,11 +254,11 @@ public class Query {
 //            System.err.println("Dawod : Problem in dbman.execute(q) function");
 //            return false;
 //        }
-//        
-//        
+//
+//
 //        return true;
 //    }
-      
-     
+    
+    
     
 }
