@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -24,31 +25,47 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.tartarus.snowball.ext.englishStemmer;
 
 /**
  *
  * @author dawod
  */
-public class indexer {
+public class indexer implements Runnable{
     ResultSet res;
-    int counter=0;
+    Integer files_counter;
     Query q = new Query();
-    List<Data> dataElement = new ArrayList<Data>();
-    String filePath="src/dataset/";
-    File directory = new File(filePath);
-    File [] files = directory.listFiles();
-    BufferedReader br ;
-    String line;
-    String link;
-    String [] words;
-    List<String> all_words = new ArrayList<String>();
-    String small_word,stem_word,stop_word;
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
+    Map<Integer,Boolean> linkStatusList = new HashMap<Integer,Boolean>();
+    String stop_word;
+    
+    Query qr = new Query();
+        int counter=0;
+        List<Data> dataElement = new ArrayList<Data>();
+        String filePath="documents";
+        File directory = new File(filePath);
+        File [] files = directory.listFiles();
+        BufferedReader br ;
+        String line,lines;
+        String body;
+        String head;
+        String link;
+        String [] words;
+        String small_word,stem_word;
+    
     
     public indexer(){
-        setStopWordList();
+        //setStopWordList();
         
+    }
+    
+    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery){
+        setStopWordList();
+        this.linkStatusList = linkStatus;
+        this.files_counter =counter;
+        this.qr = indexQuery;
     }
     
     
@@ -70,13 +87,14 @@ public class indexer {
     
     /**
      * needs:
-     * Tags Detection
+     * Make SURE that parsing is perfect
      * SPEED
-     * 
+     *
      * ___________________________________________
-     * 
+     *
      * optimizations:
-     * HTML parsing module. some links and declaring variable lines in script tag still not existed
+     * reading from one file is faster than multiple files in case of small files ONLY!..TRY to make it also for large files
+     *
      * ____________________________________________________________________
      *
      * this function is responsible for the following
@@ -97,44 +115,115 @@ public class indexer {
     public void indexFiles(){
         
         
+        
+        
+        
+        
+        
         for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory
-            if(files[i].isFile()){
+            if(!files[i].isFile())
+            {
+                //if not file : continue
+                continue;
+            }
+            
+            
+            String fileName = files[i].getName();
+            int fileId = Integer.parseInt(fileName.substring(0, fileName.length() - 5));
+            
+            if(linkStatusList.get(fileId)==null)
+            {
+                //if not existed in the link lists : continue
+                continue;
+            }
+                
+            
+            
+            
+            if(linkStatusList.get(fileId)==false)
+            {
+                //if not changed : continue
+                continue;
+            }
+                
+            
+            if(linkStatusList.get(fileId)){
+                synchronized(linkStatusList){
+                    if(!linkStatusList.get(fileId))
+                        continue;
+                    //files_counter++;
+                    System.out.println("worked file : "+fileId);
+                    linkStatusList.put(fileId, false);
+                    
+                }
+                
+                
+                
+                
                 counter=1;
                 dataElement.clear();
                 
                 try {
+                    
                     br = new BufferedReader(new FileReader(files[i]));
+                    
+                    //extracting the link of the document
                     link = br.readLine();
-                    //System.out.println("link is "+link);
-                    while((line = br.readLine())!=null ){ //for each line in the current file
-                        String html = line;
-                        Document doc = (Document) Jsoup.parse(html);
-                        line = doc.text();
-                        //Test the Jsoup library
-//                        System.out.println("line after barsing : "+line);
-                        line = line.replaceAll("[^a-zA-Z0-9 ]", " ");
-                        
-                        words = line.split(" ");
-                        for(String word : words ){
-                            // in this section , do what you need for indexing the original word
-                            
-                            
-                            small_word = word.toLowerCase();
-                            stem_word = stemmer(small_word);
-                            stem_word = stem_word.replaceAll(" ","");
-                            
-                            if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
-                                continue;
-
-                            
-                            dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
-                            
-                            counter++;
-                            
-                            
-                            
-                        }
+                    
+                    //collecting the text from the document line by line
+                    lines="";
+                    while((line = br.readLine())!=null )
+                    {
+                        lines=lines+" "+line;
                     }
+                    
+                    
+                    //parsing the HTML into <head> and <body>
+                    String html = lines;
+                    Document doc = (Document) Jsoup.parse(html);
+                    body = doc.body().text();
+                    head = doc.head().text();
+                    
+                    //replace each non-letter or non-number or non-space into space
+                    //body = body.replaceAll("[^a-zA-Z0-9 ]", " ");
+                    //head = head.replaceAll("[^a-zA-Z0-9 ]", " ");
+                    
+                    //split and store
+                    words = head.split(" ");
+                    for(String word : words ){
+                        // in this section , do what you need for indexing the original word
+                        small_word = word.toLowerCase();
+                        stem_word = stemmer(small_word);
+                        stem_word = stem_word.replaceAll(" ","");
+                        if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
+                            continue;
+                        
+                        dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
+                        counter++;
+                    }
+                    
+                    //once again
+                    words = body.split(" ");
+                    for(String word : words ){
+                        // in this section , do what you need for indexing the original word
+                        small_word = word.toLowerCase();
+                        stem_word = stemmer(small_word);
+                        stem_word = stem_word.replaceAll(" ","");
+                        if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
+                            continue;
+                        
+                        dataElement.add(new Data(stem_word, link ,counter ,small_word, "body", counter));
+                        counter++;
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,11 +232,16 @@ public class indexer {
                 }
                 
                 
-                q.insert_all_indexes((ArrayList<Data>) dataElement);
-                System.out.println("Total number of recoreds by this file = "+counter);
-                                
+                //synchronized(files_counter){
+                qr.insert_all_indexes((ArrayList<Data>) dataElement);
+                files_counter++;
+                System.out.println(files_counter +" Total number of recoreds by this file ("+files[i] +") = "+counter);
+                //}
+                
             }//the end of the file
         }//the end of the Directory
+                
+        
     }//the end of the indexer
     
     
@@ -177,6 +271,38 @@ public class indexer {
         
     }
     
+    
+    
+    public Map<Integer,Boolean> getLinkStatus(){
+        res = q.getLinkStatus();
+        Map<Integer, Boolean> linkStatus = new HashMap<Integer, Boolean>();
+        boolean status;
+        try {
+            while(res.next()){
+                status = ((res.getInt("changed")==1)? true:false);
+                linkStatus.put(res.getInt("id"), status);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return linkStatus;
+    }
+    
+    
+    public void updateLinkStatus(ArrayList<Integer> linkIds){
+        q.updateLinkStatus(linkIds);
+    }
+    
+    public Integer initFileCounter(){
+        return 0;
+    }
+    
+    
+    public Query initQuery(){
+        return qr;
+    }
     
     
     /**
@@ -267,6 +393,13 @@ public class indexer {
             System.out.println("Failed to stem the word : "+word);
             return "aaaaa";
         }
+        
+    }
+    
+    
+    public void run() {
+        indexFiles();
+        
         
     }
     
