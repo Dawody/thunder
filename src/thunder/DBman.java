@@ -29,6 +29,16 @@ public class DBman {
         return resultset.getInt("id");
     }
 
+    public int GetVisited(int id) throws Exception {
+        Statement stmt;
+        ResultSet resultset;
+        stmt = conn.createStatement();
+        resultset = stmt.executeQuery("SELECT visited FROM links WHERE id = " + id);
+        resultset.next();
+        return resultset.getInt("visited");
+    }
+
+
 
 
 
@@ -115,6 +125,10 @@ public class DBman {
         stmt = conn.createStatement();
         stmt.executeUpdate("UPDATE links SET visited = '1' WHERE id = " + id);
     }
+
+
+
+
 
     public void Reset() throws Exception {
 //        Statement stmt = null;

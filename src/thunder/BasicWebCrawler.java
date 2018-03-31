@@ -46,7 +46,7 @@ class robot {
 public class BasicWebCrawler {
 
     static DBman dbman;
-    static Pattern pattern = Pattern.compile("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)");
+    static Pattern pattern = Pattern.compile("(https?):\\/\\/(www\\.)?([-a-zA-Z0-9@:%._\\+~#=]{2,256})\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)");
     static Map<String,robot> myMap = new ConcurrentHashMap<String,robot>();
     public static void main(String[] args) throws Exception {
         Set<String> links = ConcurrentHashMap.newKeySet();
@@ -209,80 +209,62 @@ class crawler implements Runnable {
     @Override
     public void run() {
 
-//        String URL;
-//        System.out.println(Thread.currentThread().getName());
-//        while(true)
-        /*if (!urls.isEmpty())*/
-        //            System.out.println(URL);
-
         if (links.add(URL.Name)) {
             try {
                 if (RobotChecker(URL.Name)) {
 
                     Document document = Jsoup.connect(URL.Name).get();
-//                    BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" +URL.id+".html"));
-//                    writer.write(document.toString());
 //                    if(URL.id==-1)
 //                        URL.id = BasicWebCrawler.dbman.AddLinK(URL.Name);
                     File f = new File("documents/" + URL.id + ".html");
 //                    File f2 = new File("temp.html");
                     String s;
-                    if (f.exists()) {
-//                        BufferedReader reader = new BufferedReader(new FileReader("documents/" +URL.id+".html"));
-
-//                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/temp.html"));
-//                        writer.write(document.toString());
-//                        BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
-//                        writer.close();
-
-
+                    if (f.exists()&&BasicWebCrawler.dbman.GetVisited(URL.id)!=-1) {
+//
                         String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
 
                         if (TextToCompare.equals(document.toString())) {
-//                            System.out.println(TextToCompare);
-//                            System.out.println(document.toString());
-
+//
                             s="exists and equal";
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, 1);
                         } else {
                             s="exists and not equal";
-                            FileWriter writer = new FileWriter(f);
-                            writer.write(document.toString());
-                            writer.close();
-//                            BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+//                            FileWriter writer = new FileWriter(f);
 //                            writer.write(document.toString());
 //                            writer.close();
+                            BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+                            writer.write(document.toString());
+                            writer.close();
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
 
                         }
                     } else {
                         s="does not exist";
-                        FileWriter writer = new FileWriter(f);
-                        writer.write(document.toString());
-                        writer.close();
-//                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+//                        FileWriter writer = new FileWriter(f);
 //                        writer.write(document.toString());
 //                        writer.close();
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+                        writer.write(document.toString());
+                        writer.close();
                         BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
 
                     }
                     System.out.println(Thread.currentThread().getName() + "  " + URL.Name +"  " + s);
-//                    synchronized (urls)
-//                    {
-//                        System.out.print(Thread.currentThread().getName() + "  " + URL.Name);
-//                        System.out.print("  ");
-//                        System.out.println(URL.Name);
-//                        System.out.println("  " + s);
-//                    }
-
-
 
                     Elements linksOnPage = document.select("a[href]");
                     for (Element page : linksOnPage) {
-                        if(BasicWebCrawler.pattern.matcher(page.absUrl("href")).matches())
+                        Matcher m1 = BasicWebCrawler.pattern.matcher(page.absUrl("href"));
+                        if(m1.matches())
                         {
+                            String y= page.absUrl("href");
+                            if(!y.endsWith("/"))
+                                y = y.concat("/");
+                            y = new StringBuilder(y).replace(m1.start(3), m1.end(3), m1.group(3).toLowerCase()).toString();
+                            y = new StringBuilder(y).replace(m1.start(1), m1.end(1), m1.group(1).toLowerCase()).toString();
+//                            System.out.println(y);
                             int x = BasicWebCrawler.dbman.AddLinK(page.absUrl("href"));
-                            urls.add(new link(page.absUrl("href"), x));
+
+                            urls.add(new link(y, x));
                         }
                     }
                     counter.incrementAndGet();
