@@ -87,9 +87,9 @@ public class DBman {
         ResultSet rs = stmt.getGeneratedKeys();
         //rs.next();
         //System.out.println(rs.getInt(1));
-        
-        
-        
+
+
+
         if(rs.next())
         {
             return rs.getInt(1);
@@ -100,8 +100,16 @@ public class DBman {
             resultset.next();
             return resultset.getInt(1);
         }
-        
+
     }
+
+
+    public void addOutLinks(int id,int num) throws Exception {
+        Statement stmt = null;
+        stmt = myconn.createStatement();
+        stmt.executeUpdate("UPDATE links SET out_links = "+num+" WHERE id = "+ id);
+    }
+
     
     
     public void GetQueueAndSet(int x, Set<String> links, BlockingQueue<link> urls) throws Exception {

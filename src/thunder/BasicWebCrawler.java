@@ -287,7 +287,7 @@ class crawler implements Runnable {
                     PreparedStatement ps = DBman.myconn.prepareStatement("INSERT IGNORE into links (link) VALUES (?)");
                     PreparedStatement ps2 = DBman.myconn.prepareStatement("INSERT IGNORE into in_out (link1,link2) VALUES (?,?)");
                     Elements linksOnPage = document.select("a[href]");
-                    ArrayList<link> temp= new ArrayList<link>();
+                    ArrayList<link> temp= new ArrayList<>();
                     for (Element page : linksOnPage) {
                         Matcher m1 = BasicWebCrawler.pattern.matcher(page.absUrl("href"));
                         if(m1.matches()&&page.absUrl("href").length()<=255)
@@ -332,6 +332,7 @@ class crawler implements Runnable {
 //                    {
 //                        urls.add(temp.get(i));
 //                    }
+                    BasicWebCrawler.dbman.addOutLinks(URL.id, temp.size());
                     BasicWebCrawler.dbman.IncCounter();
                     BasicWebCrawler.dbman.SetVisited(URL.id);
                     counter.incrementAndGet();

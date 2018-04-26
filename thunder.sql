@@ -18,6 +18,7 @@ CREATE TABLE `links` (
   `out_links` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 create table indexer(
 	id int unsigned NOT NULL auto_increment, 
 	stem varchar(1000) not null ,
