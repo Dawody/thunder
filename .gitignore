@@ -1,5 +1,6 @@
 /thunder/nbproject/private/
 /thunder/thunder.iml
+/nbproject/*
 /thunder/build/
 /thunder/out/
 /out/
@@ -17,3 +18,9 @@
 /libs/AlKhalil1.1/dist/
 /libs/AlKhalil1.1/nbproject/private/
 /documents
+
+/.idea
+/out
+thunder.iml
+/MiniPigTable/nbproject/private/
+
