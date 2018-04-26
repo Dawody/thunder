@@ -206,7 +206,7 @@ public class DBman {
         //conn="jdbc:mariadb://localhost:3306/thunder";
         conn="jdbc:mariadb://localhost:3306/thunder?useServerPrepStmts=false&rewriteBatchedStatements=true&rewriteBatchUpdates=true&integratedSecurity=true";
         try {
-            myconn = DriverManager.getConnection(conn,"root","dawod@SQL");
+            myconn = DriverManager.getConnection(conn,"root","");
         } catch (SQLException ex) {
             Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
         }
