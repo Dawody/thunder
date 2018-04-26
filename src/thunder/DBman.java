@@ -56,7 +56,17 @@ public class DBman {
         resultset.next();
         return resultset.getInt("id");
     }
-    
+
+    public int GetVisited(int id) throws Exception {
+        Statement stmt;
+        ResultSet resultset;
+        stmt = myconn.createStatement();
+        resultset = stmt.executeQuery("SELECT visited FROM links WHERE id = " + id);
+        resultset.next();
+        return resultset.getInt("visited");
+    }
+
+
     public void IncCounter() throws Exception {
         Statement stmt;
         stmt = myconn.createStatement();
@@ -64,7 +74,7 @@ public class DBman {
     }
     
     public void SetCount(int x) throws Exception {
-        Statement stmt = null;
+        Statement stmt;
         stmt = myconn.createStatement();
         stmt.executeUpdate("UPDATE counter SET id = " + x + " LIMIT 1;");
     }
@@ -77,9 +87,9 @@ public class DBman {
         ResultSet rs = stmt.getGeneratedKeys();
         //rs.next();
         //System.out.println(rs.getInt(1));
-        
-        
-        
+
+
+
         if(rs.next())
         {
             return rs.getInt(1);
@@ -90,16 +100,24 @@ public class DBman {
             resultset.next();
             return resultset.getInt(1);
         }
-        
+
     }
+
+
+    public void addOutLinks(int id,int num) throws Exception {
+        Statement stmt = null;
+        stmt = myconn.createStatement();
+        stmt.executeUpdate("UPDATE links SET out_links = "+num+" WHERE id = "+ id);
+    }
+
     
     
     public void GetQueueAndSet(int x, Set<String> links, BlockingQueue<link> urls) throws Exception {
-        Statement stmt = null;
-        ResultSet resultset = null;
+        Statement stmt;
+        ResultSet resultset;
         stmt = myconn.createStatement();
         //int n = GetCounter();
-        resultset = stmt.executeQuery("SELECT * FROM links WHERE visited <= 0 AND countdown = 0");/*LIMIT 5000 - "+n*/
+        resultset = stmt.executeQuery("SELECT * FROM links WHERE visited <= 0 AND countdown = 0 LIMIT 10000");/*LIMIT 5000 - "+n*/
         while (resultset.next()) {
             urls.add(new link(resultset.getString("link"), resultset.getInt("id")));
         }
@@ -141,6 +159,7 @@ public class DBman {
         stmt = myconn.createStatement();
         stmt.executeUpdate("UPDATE links SET visited = '1' WHERE id = " + id);
     }
+
     
     public void Reset() throws Exception {
         //Statement stmt = null;
@@ -206,7 +225,7 @@ public class DBman {
         //conn="jdbc:mariadb://localhost:3306/thunder";
         conn="jdbc:mariadb://localhost:3306/thunder?useServerPrepStmts=false&rewriteBatchedStatements=true&rewriteBatchUpdates=true&integratedSecurity=true";
         try {
-            myconn = DriverManager.getConnection(conn,"root","dawod@SQL");
+            myconn = DriverManager.getConnection(conn,"root","");
         } catch (SQLException ex) {
             Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
         }
