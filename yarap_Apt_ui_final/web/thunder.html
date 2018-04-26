@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>THUNDER</title>
+    <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:500italic,600italic,600,700,700italic,300italic,300,400,400italic,800,900' rel='stylesheet' type='text/css'>
+        
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600italic,700,900' rel='stylesheet' type='text/css'>
+        
+         <!-- Animate CSS -->
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <!-- CSS File-->
+        <link rel="stylesheet" type="text/css" href="css/style.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    
+    .btn-info {
+    color: #fff;
+    background-color: #FF7300;
+    border-color: #fff;
+        width: 50%;
+
+    font-size: 20px;
+}
+    .grid-container {display: grid;justify-content: center;grid-template-columns: 50% 30%;margin-left:10%;}
+    
+    </style>
+    
+</head>
+    <body>
+         <img  src="css/images/logo.png" style="margin-left: 17%;" class="img_home">
+        <form  action="Search_page" method="GET">
+            <div class="grid-container">
+        <input type="text" style="width:70%;" class="form-control input-lg" id="home_search" required placeholder="Search for.." name="home_search">
+            <input type="submit" style="width: 30%;" class="btn btn-info" id="home_search_bt"   value="Search" name="home_search_bt">
+            </div>
+        </form>
+            <br>
+            <form action="Regular_search" method="GET">
+            <div class="grid-container">
+                <input type="text" style="width:70%;" class="form-control input-lg" required id="home_rsearch" placeholder="Regular Search for.." name="home_rsearch">
+                <input type="submit" style="width:40%;" class="btn btn-info" value="Regular Search" name="home_Rsearch_bt">
+                </div>
+        </form>
+
+      </body>
+</html>
