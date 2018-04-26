@@ -1,5 +1,9 @@
 /thunder/nbproject/private/
+/thunder/thunder.iml
+/nbproject/*
 /thunder/build/
+/thunder/out/
+/out/
 /build/
 /dist/
 /AlKhalil1.1/build/
@@ -18,3 +22,4 @@
 .gitignore
 thunder.iml
 /out
+/MiniPigTable/nbproject/private/
