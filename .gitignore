@@ -19,5 +19,6 @@
 /documents
 .gitignore
 thunder.iml
+/.idea
 /out
 /MiniPigTable/nbproject/private/
