@@ -1,5 +1,6 @@
 package thunder;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,11 +16,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Array;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.apache.commons.io.FileUtils.readFileToString;
 
 
 class link {
@@ -33,8 +38,8 @@ class link {
 }
 
 class robot {
-    ArrayList<String> Allowed = new ArrayList<String>();
-    ArrayList<String> Disallowed = new ArrayList<String>();
+    ArrayList<String> Allowed = new ArrayList<>();
+    ArrayList<String> Disallowed = new ArrayList<>();
 
     public robot(ArrayList<String> allowed, ArrayList<String> disallowed) {
         Allowed = allowed;
@@ -56,25 +61,31 @@ public class BasicWebCrawler {
 
 
         dbman = new DBman();
-        int count = dbman.GetCounter();
-        AtomicInteger counter = new AtomicInteger(count);
+//        int count = dbman.GetCounter();
+//        int count2 = count;
+//        AtomicInteger counter = new AtomicInteger(count);
 //        dbman.SetCount(0);
 //        ExecutorService executorService = Executors.newFixedThreadPool(5);
         ExecutorService executorService;
         while (true) {
-            executorService = Executors.newFixedThreadPool(10);
+            int count = dbman.GetCounter();
+            int count2 = count;
+            AtomicInteger counter = new AtomicInteger(count);
+            executorService = Executors.newFixedThreadPool(50);
 
             dbman.GetQueueAndSet(count, links, urls);
             while (true) {
-                if (counter.get() >= 40) {
+                if (counter.get() >= 5000) {
                     break;
                 }
-                if (!urls.isEmpty()) {
+                if (!urls.isEmpty()&&count2<=6000) {
+                    count2++;
                     link y = urls.remove();
                     executorService.execute(new crawler(y, links, urls,counter));
 
                 }
             }
+            System.out.println("reset2");
             executorService.shutdownNow();
             executorService.awaitTermination(10,TimeUnit.MINUTES);
             urls.clear();
@@ -110,9 +121,7 @@ class crawler implements Runnable {
         String RobotURL;
         if(strings.length>=2)
         {
-//            System.out.println("hoho"+url);
             RobotURL = strings[0] + "//" + strings[2] + "/" + "robots.txt";
-//            System.out.println(RobotURL);
         }
         else
         {
@@ -122,8 +131,8 @@ class crawler implements Runnable {
 
 
         try {
-            ArrayList<String> Allowed = new ArrayList<String>();
-            ArrayList<String> Disallowed = new ArrayList<String>();
+            ArrayList<String> Allowed = new ArrayList<>();
+            ArrayList<String> Disallowed = new ArrayList<>();
             if(BasicWebCrawler.myMap.containsKey(RobotURL))
             {
 //                robot x;
@@ -135,12 +144,12 @@ class crawler implements Runnable {
             {
 //                System.out.println("not found");
                 BufferedReader in = new BufferedReader(new InputStreamReader(new URL(RobotURL).openStream()));
-                String line = null;
+                String line;
 
                 Pattern p2 = Pattern.compile("^[ ]*(Disallow:) +([-a-zA-Z0-9@:%_\\+.~#?&//=]*)[ ]*$");
                 Pattern p3 = Pattern.compile("^[ ]*(Allow:) +([-a-zA-Z0-9@:%_\\+.~#?&//=]*)[ ]*$");
 //            Pattern p1 = Pattern.compile("([ ]*User-agent:) +((\\*)|(ThunderBot))");
-                Pattern p1 = Pattern.compile("^[ ]*(User-Agent:) +(.*)[ ]*$");
+                Pattern p1 = Pattern.compile("^[ ]*(User-agent:) +(.*)[ ]*$");
                 int found = 0;
                 int first = 0;
                 while ((line = in.readLine()) != null) {
@@ -191,7 +200,7 @@ class crawler implements Runnable {
                 }
             }
             for (int i = 0; i < Disallowed.size(); i++) {
-                System.out.println(Disallowed.get(i));
+//                System.out.println(Disallowed.get(i));
                 if (url.contains(Disallowed.get(i))) {
                     if (Disallowed.get(i).length() > MaxLength) {
                         Allow = false;
@@ -223,33 +232,42 @@ class crawler implements Runnable {
             try {
                 if (RobotChecker(URL.Name)) {
 //
-
+//                    Connection.Response html = Jsoup.connect(URL.Name).execute();
+//                    System.out.println(html.body());
                     Document document = Jsoup.connect(URL.Name).get();
                     File f = new File("documents/" + URL.id + ".html");
 //                    File f2 = new File("temp.html");
                     String s;
                     if (f.exists()&&BasicWebCrawler.dbman.GetVisited(URL.id)!=-1) {
-//
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/temp.html"));
-                        writer.write(document.toString());
-                        writer.close();
+//                        FileWriter fi = new FileWriter("documents/" + URL.id + ".html");
+//                        FileWriter fi = new FileWriter("documents/"+ URL.id+"temp.html");
 
+//                        BufferedWriter writer = new BufferedWriter(fi);
+//                        String t =  readFileToString(f/*,StandardCharsets.UTF_8*/);
+//                        writer.write(document.toString());
+//                        writer.write(html.body());
+//                        writer.close();
+//                        fi.close();
+//                        File file1 = new File("file1.txt");
+//                        File file2 = new File("file2.txt");
+//                        boolean isTwoEqual = FileUtils.contentEquals(file1, file2);
                         String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
-                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/temp.html")));
-
-
-                        if (TextToCompare.equals(TextToCompare2)) {
-
+//                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/temp.html")));
+                        if (TextToCompare.equals(document.toString())) {
                             s="exists and equal";
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, 1);
                         } else {
+//                            System.out.println(t);
                             s="exists and not equal";
 //                            FileWriter writer = new FileWriter(f);
 //                            writer.write(document.toString());
 //                            writer.close();
-                           /* BufferedWriter */writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+                            FileWriter fi = new FileWriter("documents/" + URL.id + ".html");
+                            BufferedWriter writer = new BufferedWriter(fi);
                             writer.write(document.toString());
+//                            writer.write(html.body());
                             writer.close();
+                            fi.close();
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
 
                         }
@@ -258,19 +276,21 @@ class crawler implements Runnable {
 //                        FileWriter writer = new FileWriter(f);
 //                        writer.write(document.toString());
 //                        writer.close();
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("documents/" + URL.id + ".html"));
+                        FileWriter fi = new FileWriter("documents/" + URL.id + ".html");
+                        BufferedWriter writer = new BufferedWriter(fi);
                         writer.write(document.toString());
                         writer.close();
+                        fi.close();
                         BasicWebCrawler.dbman.SetLastChanged(URL.id, -1);
 
                     }
-                    System.out.println(Thread.currentThread().getName() + "  " + URL.Name +"  " + s);
                     PreparedStatement ps = DBman.myconn.prepareStatement("INSERT IGNORE into links (link) VALUES (?)");
+                    PreparedStatement ps2 = DBman.myconn.prepareStatement("INSERT IGNORE into in_out (link1,link2) VALUES (?,?)");
                     Elements linksOnPage = document.select("a[href]");
                     ArrayList<link> temp= new ArrayList<link>();
                     for (Element page : linksOnPage) {
                         Matcher m1 = BasicWebCrawler.pattern.matcher(page.absUrl("href"));
-                        if(m1.matches())
+                        if(m1.matches()&&page.absUrl("href").length()<=255)
                         {
                             String y= page.absUrl("href");
                             if(!y.endsWith("/"))
@@ -283,6 +303,9 @@ class crawler implements Runnable {
 
                             ps.setString(1,y);
                             ps.addBatch();
+                            ps2.setString(1,URL.Name);
+                            ps2.setString(2,y);
+                            ps2.addBatch();
                             temp.add(new link(y, -1));
                         }
 
@@ -291,15 +314,27 @@ class crawler implements Runnable {
 
 
                     }
+                    System.out.println(Thread.currentThread().getName() + "  " + URL.Name +"  " + s+"  "+URL.id);
                     ps.executeBatch();
-                    for (int i=0;i<temp.size();i++)
+                    ps2.executeBatch();
+//                    int nn = 0;
+//                    ResultSet rs = ps.getGeneratedKeys();
+//                    while (rs.next()) {
+//                        nn++;
+////                        int id = rs.getInt(1);
+//                    }
+//                    System.out.println(nn+"  "+temp.size());
+                    if(urls.size()+counter.get()<=6000)
                     {
-                        urls.add(temp.get(i));
-
+                        urls.addAll(temp);
                     }
-                    counter.incrementAndGet();
+//                    for (int i=0;i<temp.size();i++)
+//                    {
+//                        urls.add(temp.get(i));
+//                    }
                     BasicWebCrawler.dbman.IncCounter();
                     BasicWebCrawler.dbman.SetVisited(URL.id);
+                    counter.incrementAndGet();
                 }
             } catch (IOException e) {
                 System.err.println("For '" + URL + "': " + e.getMessage());
