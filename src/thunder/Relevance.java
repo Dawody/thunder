@@ -1,9 +1,6 @@
 package thunder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 //I will use stemmer(String word)-> to stem query words,
 // getLink(String word,int type)-> to get list of links that have this word,
@@ -17,17 +14,32 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
     {
         ind = new indexer();
     }
+
+    class ValueComparator implements Comparator {
+        Map<String,Double> map;
+
+        public ValueComparator(Map<String,Double> map) {
+            this.map = map;
+        }
+
+        public int compare(Object keyA, Object keyB) {
+            Double valueA = map.get((String) keyA);
+            Double valueB = map.get((String) keyB);
+            return valueA.compareTo(valueB);
+        }
+    }
+
     public Map<String, Double> tfidf(String[] query){ //tf() * idf() for each document
 
-        ArrayList<String> word_links = null, stem_links = null;
+        ArrayList<String> word_links = new ArrayList<String>(), stem_links = new ArrayList<String>();
         ArrayList<Double> tf_original = new ArrayList<Double>();
         ArrayList<Double> tf_stemmed =  new ArrayList<Double>();
         ArrayList<Integer> org_links_count = new ArrayList<Integer>();
         ArrayList<Integer> stm_links_count = new ArrayList<Integer>();
         String stemmed_word;
         ArrayList<String> stem_words = new ArrayList<String>();
-        Map<String, ArrayList<String>> original_urls = null;
-        Map<String, ArrayList<String>> stemmed_urls = null;
+        Map<String, ArrayList<String>> original_urls = new HashMap<String, ArrayList<String>>();
+        Map<String, ArrayList<String>> stemmed_urls = new HashMap<String, ArrayList<String>>();
 
         //tf part
         for(int j = 0; j < query.length; j++)
@@ -77,7 +89,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
             idf_stemmed.add(Math.log(stm_links_total / (double)stm_links_count.get(i)));
         }
         //tf-idf part
-        Map<String,Double> tf_idf = null;
+        Map<String,Double> tf_idf = new HashMap<String,Double>();
         int k = 0;
         for(int i = 0; i < original_urls.keySet().size(); i++)
         {
@@ -97,6 +109,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
                                 tf_stemmed.get(k)*idf_stemmed.get(k) );
             }
         }
+        Map<String,Double> final1 = (Map<String, Double>) new ValueComparator(tf_idf);
         return tf_idf;
     }
 }
