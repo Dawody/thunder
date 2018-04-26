@@ -180,6 +180,30 @@ public class Query {
         
         return res;
     }
+
+
+
+    /**
+     * This function is responsible for getting the Positions where i can find specific word in specific Document
+     * @param link: the specific word
+     * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
+     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @return List of Positions where i an find the specific word in the specific Document
+     * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
+     */
+    public ResultSet getPositions(String link,String word,int type){
+        if(type==0)
+            q = "select distinct(position) from indexer where stem=? and link=?";
+        else
+            q = "select distinct(position) from indexer where original=? and link=?";
+        
+        res = dbman.execute(q,word,link);
+        
+        return res;
+    }
+    
+    
+
     
     /**
      * This function is responsible for counting how many times can i find specific word in specific document
