@@ -22,9 +22,9 @@ CREATE TABLE `links` (
 create table indexer(
 	id int unsigned NOT NULL auto_increment, 
 	stem varchar(1000) not null ,
-	link varchar(255) not null,
+	link varchar(2550) not null,
 	total int unsigned not null , 
-	original varchar(50) not null , 
+	original varchar(1000) not null , 
 	tag varchar(20) not null , 
 	position int unsigned not null , 
 	primary key (id) 
@@ -63,5 +63,8 @@ ALTER TABLE `in_out` ADD INDEX(`link2`);
 
 INSERT INTO `counter` (`id`) VALUES ('0');
 INSERT INTO `links` (`id`, `link`, `countdown`, `lastchanged`, `changed`, `visited`) VALUES (NULL, 'https://www.geeksforgeeks.org/', '0', '0', '0', '-1');
+
+
+
 
 
