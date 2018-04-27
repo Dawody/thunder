@@ -5,10 +5,15 @@
 */
 package thunder;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
@@ -26,7 +31,7 @@ public class Thunder {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
         indexer indx = new indexer();
@@ -34,6 +39,7 @@ public class Thunder {
         linkStatus = indx.getLinkStatus();
         Integer counter = indx.initFileCounter();
         Query qr = indx.initQuery();
+        Set dictionary = indx.initDictionary();
         
         
 //TEST insertion
@@ -41,10 +47,10 @@ public class Thunder {
 
         for(int i=0 ; i<1 ; i++){
             //indx.indexFiles();
-            Thread t1 = new Thread(new indexer(linkStatus,counter,qr));
-            Thread t2 = new Thread(new indexer(linkStatus,counter,qr));
-            Thread t3 = new Thread(new indexer(linkStatus,counter,qr));
-            Thread t4 = new Thread(new indexer(linkStatus,counter,qr));
+            Thread t1 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary));
+            Thread t2 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary));
+            Thread t3 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary));
+            Thread t4 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary));
 //            Thread t5 = new Thread(new indexer(linkStatus,counter,qr));
 //            Thread t6 = new Thread(new indexer(linkStatus,counter,qr));
 //            Thread t7 = new Thread(new indexer(linkStatus,counter,qr));
@@ -93,6 +99,20 @@ public class Thunder {
         }
         System.out.println("start to update link status..");
         indx.updateLinkStatus(linkIds);
+        System.out.println("start to save the dictionary");
+        
+
+        File file = new File("libs/dictionary.txt");
+        PrintWriter writer = new PrintWriter(file);
+        for(Object str : dictionary)
+        {
+            writer.print(str.toString()+"\n");
+        }
+        writer.close();
+        
+        System.out.println("INDEXER FINISH");
+        
+        //------------------------------------------------------------------------------
         
 
 
