@@ -112,13 +112,13 @@ public class Thunder {
         
 
 
-
+//segment tree implementation in java
         
         
         
         //General TEST FOR GETCOUNT
 //        List<String> links = new ArrayList<String>();
-//        String original = "code";
+//        String original = "in";
 //        int x=0;
 //        links = indx.getLink(original,1);
 //        for(String link :links){
@@ -127,7 +127,7 @@ public class Thunder {
 //            System.out.println(x + " numer of total words in Document is "+indx.getTotal(link));
 //        }
 //        Map<String,Integer> mp ;
-//        mp = indx.getCount((ArrayList<String>) links,original,0);
+//        mp = indx.getCount((ArrayList<String>) links,original,1);
 //        for(Map.Entry<String,Integer> entry : mp.entrySet())
 //        {
 //                    System.out.println(" numer of counts in Document "+entry.getKey()+" is "+entry.getValue());

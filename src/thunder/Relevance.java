@@ -120,7 +120,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         for(int j = 0; j < query.length; j++) {
             TfidfObj o = new TfidfObj(query[j]);
             o.setStm_word(ind.stemmer(query[j]));
-            o.setOrg_links(ind.getLink(query[j], 1));
+            o.setOrg_links(ind.getLink(query[j], 1));            
             o.setStm_links(ind.getLink(o.getStm_word(), 0));
             if (o.getOrg_links().size() > 0) {
                 o.setOrg_count(ind.getCount(o.getOrg_links(), query[j], 1));
