@@ -15,23 +15,24 @@ CREATE TABLE `links` (
   `lastchanged` int(11) NOT NULL DEFAULT '0',
   `changed` int(1) NOT NULL DEFAULT '0',
   `visited` int(5) NOT NULL DEFAULT '-1',
-  `out_links` int(11) NOT NULL DEFAULT '0'
+  `out_links` int(11) NOT NULL DEFAULT '0',
+  `score` DOUBLE NOT NULL DEFAULT '0.0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `queries` (
+  `query` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table indexer(
 	id int unsigned NOT NULL auto_increment, 
 	stem varchar(1000) not null ,
-	link varchar(255) not null,
+	link varchar(2550) not null,
 	total int unsigned not null , 
-	original varchar(50) not null , 
+	original varchar(1000) not null , 
 	tag varchar(20) not null , 
 	position int unsigned not null , 
 	primary key (id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 
 
 
@@ -48,7 +49,8 @@ ALTER TABLE `links`
 COMMIT;
 ALTER TABLE `links` ADD UNIQUE(`link`);
 
-
+ALTER TABLE `queries`
+  ADD UNIQUE KEY (`query`);
 
 CREATE TABLE `in_out` ( 
 `link1` varchar(255) NOT NULL , 
@@ -63,5 +65,8 @@ ALTER TABLE `in_out` ADD INDEX(`link2`);
 
 INSERT INTO `counter` (`id`) VALUES ('0');
 INSERT INTO `links` (`id`, `link`, `countdown`, `lastchanged`, `changed`, `visited`) VALUES (NULL, 'https://www.geeksforgeeks.org/', '0', '0', '0', '-1');
+
+
+
 
 

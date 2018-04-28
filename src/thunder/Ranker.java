@@ -7,30 +7,45 @@ import java.util.Map;
 
 public class Ranker{
 
-    private List<Double> scored_doc;
-    private Double individual_score;
-    private Popularity p;
-    private Relevance r;
-
-    Ranker(){
-        /*db = new RankerDBConnection();
-        individual_score=0.0;*/
-        p = new Popularity();
-        r = new Relevance();
-    }
-    public void calculateScore(){
-    }
-    public static void main(String args[]) throws SQLException {
-        Ranker r1 = new Ranker();
-        /*Map<String, Double> mr;
-        String [] s1 = {"netherlands","vs","portugal", "today"};
-        mr = r1.r.tfidf(s1);*/
-        ArrayList<String> s = r1.p.page_ranker();
-        for (int i=0; i<s.size();i++)
+    protected static class Q_Obj {
+        String s;
+        String [] s1;
+        int ph;
+        public Q_Obj(String s, String[] sa, int p)
         {
-            System.out.print(s.get(i)+" ");
+            this.s = s;
+            this.s1 = sa;
+            this.ph = p;
         }
 
+        public String getQuery() {
+            return s;
+        }
+
+        public int getPh() {
+            return ph;
+        }
+        public String[] getQuery_words() {
+            return s1;
+        }
     }
 
+    Ranker(){
+    }
+
+    public static void main(String args[]) throws SQLException {
+        /*String s = "segment tree";
+        String [] s1 = s.split(" ");
+        int x = 0;
+        Q_Obj q = new Q_Obj(s,s1,x);
+        Relevance r = new Relevance();
+        ArrayList<String> mr = r.decide(q);
+        System.out.println(mr.size());
+        for (int i=0; i<mr.size();i++)
+        {
+            System.out.println(mr.get(i));
+        }*/
+        Popularity p = new Popularity();
+        p.page_ranker();
+    }
 }

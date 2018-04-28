@@ -1,115 +1,189 @@
 package thunder;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.Map.Entry;
 
 //I will use stemmer(String word)-> to stem query words,
 // getLink(String word,int type)-> to get list of links that have this word,
 // getTotal(String link)-> to get total number of words in the document,
 // getCount(String link , String word , int type)-> to get number of occurrences in the document
 
-public class Relevance { // TF-IDF score for keywords in query found in the document
+public class Relevance extends Ranker{ // TF-IDF score for keywords in query found in the document
     private indexer ind;
+    private DBman db;
+    protected static class Query_obj {
+        private String query;
+        private String []query_words;
+        private int ph;
 
+        public Query_obj (String s, String []qu,int p)
+        { this.query = s; this.query_words=qu; this.ph=p; }
+        public String getQuery() { return query; }
+        public int getPh(){ return ph; }
+        public String [] getQuery_words(){ return query_words; }
+    }
     Relevance()
     {
         ind = new indexer();
+        db = new DBman();
+    }
+    public ArrayList<String> decide(Q_Obj qb)
+    {
+        ArrayList<String> o = new ArrayList<String>();
+        int x = qb.getPh();
+        saveQueries(qb.getQuery());
+        switch (x)
+        {
+            case 0:
+                o = tfidf(qb.getQuery_words());
+                break;
+            case 1:
+                o = phraseSearch(qb.getQuery_words());
+                break;
+        }
+        return o;
+    }
+    private class TfidfOut {
+        private String link;
+        private double score;
+        private boolean flag;
+
+        private TfidfOut(String l, double s, boolean b) { this.link = l; this.score = s; this.flag = b;}
+        public String getLink() { return link; }
+        public double getScore() { return score; }
+        public void setFlag(boolean flag) { this.flag = flag; }
+        public boolean getFlag() { return flag; }
     }
 
-    class ValueComparator implements Comparator {
-        Map<String,Double> map;
+    private class TfidfObj {
+        private String org_word;
+        private String stm_word = "";
+        private ArrayList<String> org_links = new ArrayList<String>();
+        private ArrayList<String> stm_links = new ArrayList<String>();
+        private ArrayList<Double> org_links_tf = new ArrayList<Double>();
+        private ArrayList<Double> stm_links_tf  = new ArrayList<Double>();
+        private double org_idf = 0.0;
+        private double stm_idf = 0.0;
 
-        public ValueComparator(Map<String,Double> map) {
-            this.map = map;
-        }
-
-        public int compare(Object keyA, Object keyB) {
-            Double valueA = map.get((String) keyA);
-            Double valueB = map.get((String) keyB);
-            return valueA.compareTo(valueB);
-        }
+        private TfidfObj(String s) { this.org_word = s; }
+        public void setOrg_idf(double org_idf) { this.org_idf = org_idf; }
+        public void setStm_idf(double stm_idf) { this.stm_idf = stm_idf; }
+        public void setOrg_links(ArrayList<String> org_links) { this.org_links = org_links; }
+        public void setStm_links(ArrayList<String> stm_links) { this.stm_links = stm_links; }
+        public void setStm_word(String stm_word) { this.stm_word = stm_word; }
+        public void setOrg_link_tf(double org_link_tf) { this.org_links_tf.add(org_link_tf); }
+        public void setStm_link_tf(double stm_link_tf) { this.stm_links_tf.add(stm_link_tf); }
+        public ArrayList<Double> getOrg_links_tf() { return org_links_tf; }
+        public ArrayList<Double> getStm_links_tf() { return stm_links_tf; }
+        public double getOrg_idf() { return org_idf; }
+        public double getStm_idf() { return stm_idf; }
+        public ArrayList<String> getOrg_links() { return org_links; }
+        public ArrayList<String> getStm_links() { return stm_links; }
+        public String getOrg_word() { return org_word; }
+        public String getStm_word() { return stm_word; }
     }
 
-    public Map<String, Double> tfidf(String[] query){ //tf() * idf() for each document
+    private void saveQueries(String q) {
+        //save queries in db in table queries
+        String query ="INSERT IGNORE INTO queries (query) VALUES ('"+q+"')";
+        db.execute(query);
+    }
 
-        ArrayList<String> word_links = new ArrayList<String>(), stem_links = new ArrayList<String>();
-        ArrayList<Double> tf_original = new ArrayList<Double>();
-        ArrayList<Double> tf_stemmed =  new ArrayList<Double>();
-        ArrayList<Integer> org_links_count = new ArrayList<Integer>();
-        ArrayList<Integer> stm_links_count = new ArrayList<Integer>();
-        String stemmed_word;
-        ArrayList<String> stem_words = new ArrayList<String>();
-        Map<String, ArrayList<String>> original_urls = new HashMap<String, ArrayList<String>>();
-        Map<String, ArrayList<String>> stemmed_urls = new HashMap<String, ArrayList<String>>();
+    private ArrayList<String> phraseSearch(String[] query) {
 
+        return null;
+    }
+
+    private ArrayList<String> tfidf(String[] query){ //tf() * idf() for each document
+        ArrayList<TfidfObj> data = new ArrayList<TfidfObj>();
+        ArrayList<String> output = new ArrayList<String>();
+        int[] a={0,0};
+        //----------------------------------------------------------------------------------
         //tf part
+        a = tf(query, data, a);
+        //idf part
+        idf(data, a);
+        //tf-idf part
+        tf_idf(data, output);
+        return output;
+    }
+    private int[] tf(String[] query, ArrayList<TfidfObj> d, int[] arr) {
         for(int j = 0; j < query.length; j++)
         {
-            stemmed_word = ind.stemmer(query[j]);
-            stem_words.add(stemmed_word);
-            word_links = ind.getLink(query[j], 1);
-            original_urls.put(query[j],word_links);
-            org_links_count.add(word_links.size());
-            stem_links = ind.getLink(stemmed_word, 0);
-            stemmed_urls.put(stemmed_word,stem_links);
-            stm_links_count.add(stem_links.size());
+            TfidfObj o = new TfidfObj(query[j]);
+            o.setStm_word(ind.stemmer(query[j]));
+            o.setOrg_links(ind.getLink(query[j],1));
+            o.setStm_links(ind.getLink(o.getStm_word(),0));
+            arr[0] += o.getOrg_links().size();
+            arr[1] += o.getStm_links().size();
 
-            for(int i = 0; i < word_links.size(); i++)
+            for(int i = 0; i < o.getOrg_links().size(); i++)
             {
-                double total = ind.getTotal(word_links.get(i));
-                double count= ind.getCount(word_links.get(i),query[j],1);
-                double tf = count/total;
-                tf_original.add(tf);
+                double total = ind.getTotal(o.getOrg_links().get(i));
+                double count= ind.getCount(o.getOrg_links().get(i),query[j],1);
+                double tf = count/total*1000;
+                o.setOrg_link_tf(tf);
             }
-            for(int i = 0; i < stem_links.size(); i++)
+            for(int i = 0; i < o.getStm_links().size(); i++)
             {
-                double total = ind.getTotal(stem_links.get(i));
-                double count= ind.getCount(stem_links.get(i),stemmed_word,0);
-                double tf = count/total;
-                tf_stemmed.add(tf);
+                double total = ind.getTotal(o.getStm_links().get(i));
+                double count= ind.getCount(o.getStm_links().get(i),o.getStm_word(),0);
+                double tf = count/total*1000;
+                o.setStm_link_tf(tf);
             }
+            d.add(o);
         }
-        //idf part
-        Double org_links_total = 0.0, stm_links_total = 0.0;
-        ArrayList<Double> idf_original = new ArrayList<Double>();
-        ArrayList<Double> idf_stemmed = new ArrayList<Double>();
-        for(int i = 0; i < org_links_count.size(); i++)
-        {
-            org_links_total += org_links_count.get(i);
+        return arr;
+    }
+
+    private void idf(ArrayList<TfidfObj> d, int[] arr) {
+        for(int i = 0; i < d.size(); i++) {
+            d.get(i).setOrg_idf(Math.log((double)arr[0] /
+                    (double)d.get(i).getOrg_links().size()));
+            d.get(i).setStm_idf(Math.log((double)arr[1] /
+                    (double)d.get(i).getStm_links().size()));
         }
-        for(int i = 0; i < stm_links_count.size(); i++)
-        {
-            stm_links_total += stm_links_count.get(i);
-        }
-        for(int i = 0; i < org_links_count.size(); i++)
-        {
-            idf_original.add(Math.log(org_links_total / (double)org_links_count.get(i)));
-        }
-        for(int i = 0; i < stm_links_count.size(); i++)
-        {
-            idf_stemmed.add(Math.log(stm_links_total / (double)stm_links_count.get(i)));
-        }
-        //tf-idf part
-        Map<String,Double> tf_idf = new HashMap<String,Double>();
-        int k = 0;
-        for(int i = 0; i < original_urls.keySet().size(); i++)
-        {
-            for (int j = 0; j < original_urls.get(query[i]).size(); j++,k++)
-            {
-                tf_idf.put(original_urls.get(query[i]).get(j),
-                        tf_idf.get(original_urls.get(query[i]).get(j))+
-                                tf_original.get(k)*idf_original.get(k) );
+    }
+
+    private void tf_idf(ArrayList<TfidfObj> d, ArrayList<String> outp) {
+        ArrayList<TfidfOut> not_sett = new ArrayList<TfidfOut>();
+        ArrayList<TfidfOut> sett = new ArrayList<TfidfOut>();
+        Map<String, Double> set_outp = new HashMap<String, Double>();
+        TfidfObj ob1;
+        ArrayList<String> ob2,ob3;
+        for (int i = 0; i < d.size(); i++) {
+            ob1 = d.get(i);
+            ob2 = ob1.getOrg_links();
+            ob3 = ob1.getStm_links();
+            for (int j = 0; j < ob2.size(); j++) {
+                if (!set_outp.containsKey(ob2.get(j))) {
+                    set_outp.put(ob2.get(j), ob1.getOrg_links_tf().get(j) * ob1.getOrg_idf()); }
+                else {
+                    set_outp.put(ob2.get(j), ob1.getOrg_links_tf().get(j) * ob1.getOrg_idf()
+                        + set_outp.get(ob2.get(j))); }
             }
-        }
-        for(int i = 0; i < stemmed_urls.keySet().size(); i++)
-        {
-            for (int j = 0; j < stemmed_urls.get(stem_words.get(i)).size(); j++,k++)
-            {
-                tf_idf.put(stemmed_urls.get(stem_words.get(i)).get(j),
-                        tf_idf.get(stemmed_urls.get(stem_words.get(i)).get(j))+
-                                tf_stemmed.get(k)*idf_stemmed.get(k) );
+            for (int k = 0; k < ob3.size(); k++) {
+                if (!set_outp.containsKey(ob3.get(k))){
+                    set_outp.put(ob3.get(k), ob1.getStm_links_tf().get(k) * ob1.getStm_idf()*0.1); }
+                else {
+                    set_outp.put(ob3.get(k), ob1.getStm_links_tf().get(k) * ob1.getStm_idf()*0.1
+                            + set_outp.get(ob3.get(k))); }
             }
         }
-        Map<String,Double> final1 = (Map<String, Double>) new ValueComparator(tf_idf);
-        return tf_idf;
+
+        Set<Entry<String, Double>> set = set_outp.entrySet();
+        List<Entry<String, Double>> list = new ArrayList<Entry<String, Double>>(
+                set);
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            public int compare(Map.Entry<String, Double> o1,
+                               Map.Entry<String, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        for(int i = 0; i<list.size();i++) {
+            System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
+            outp.add(list.get(i).getKey());
+        }
     }
 }

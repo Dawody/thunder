@@ -134,14 +134,18 @@ public class Query {
     /**
      * This function is responsible for getting Links that contain specific word
      * @param word : single word either stemmed_word or original_word
-     * @param type : if 0 then word argument is stemmed_word ,else it is original_word
+     * @param type : if 0 then word argument is stemmed_word ,else if 1 it is original_word, else if (2,3) use regular expressions
      * @return List of Links
      */
     public ResultSet getLinks(String word,int type){
         if(type==0)
             q = "select DISTINCT(link) from indexer where stem=?";
-        else
+        else if(type==1)
             q = "select DISTINCT(link) from indexer where original=?";
+        else if(type==2)
+            q = "select DISTINCT(link) from indexer where stem regexp ?";
+        else if(type==3)
+            q = "select DISTINCT(link) from indexer where original regexp ?";
         
         res = dbman.execute(q, word);
         
@@ -154,7 +158,7 @@ public class Query {
      * @return : number of words in the Document
      */
     public ResultSet getTotal(String link){
-        q = "select total from indexer where link=?";
+        q = "select DISTINCT(total) from indexer where original=\"dawooood\" and link=?";
         
         res = dbman.execute(q, link);
         
@@ -166,15 +170,19 @@ public class Query {
      * This function is responsible for getting the Tags where i can find specific word in specific Document
      * @param link: the specific word
      * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
-     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @param type: if 0 then the word is stemmed_word else if 1 its an original_word,else (2,3) use regular expressions
      * @return List of Tags where i an find the specific word in the specific Document
      * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ResultSet getTags(String link,String word,int type){
         if(type==0)
             q = "select distinct(tag) from indexer where stem=? and link=?";
-        else
+        else if(type==1)
             q = "select distinct(tag) from indexer where original=? and link=?";
+        else if(type==2)
+            q = "select distinct(tag) from indexer where stem regexp ? and link=?";
+        else if (type==3)
+            q = "select distinct(tag) from indexer where original regexp ? and link=?";
         
         res = dbman.execute(q,word,link);
         
@@ -187,16 +195,20 @@ public class Query {
      * This function is responsible for getting the Positions where i can find specific word in specific Document
      * @param link: the specific word
      * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
-     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @param type: if 0 then the word is stemmed_word else if 1 its an original_word,else if(2,3) use regular expressions
      * @return List of Positions where i an find the specific word in the specific Document
      * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ResultSet getPositions(String link,String word,int type){
         if(type==0)
             q = "select distinct(position) from indexer where stem=? and link=?";
-        else
+        else if(type==1)
             q = "select distinct(position) from indexer where original=? and link=?";
-        
+        else if(type==2)
+            q = "select distinct(position) from indexer where stem regexp ? and link=?";
+        else if(type==3)
+            q = "select distinct(position) from indexer where original regexp ? and link=?";
+
         res = dbman.execute(q,word,link);
         
         return res;
@@ -207,18 +219,30 @@ public class Query {
     
     /**
      * This function is responsible for counting how many times can i find specific word in specific document
+     * I assume that ArrayList<String> links MUST NOT be empty!
      * @param link : the specific Document
      * @param word : the specific word that can be either stemmed_word or an original_word
      * @param type : if 0 then word is stemmed_word else it's an original_word
      * @return : how many times can i find specific word in specific document
      */
-    public ResultSet getCount(String link , String word,int type){
-        if(type==0)
-            q = "select count(*) from indexer where stem=? and link=?";
-        else
-            q = "select count(*) from indexer where original=? and link=?";
+    public ResultSet getCount(ArrayList<String> links , String word,int type){
+        String qLinks ="( link=? "; 
+        for(int i =1 ; i<links.size() ; i++)
+        {
+            qLinks+="or link=? ";
+        }
+        qLinks+=")";
         
-        res = dbman.execute(q , word, link);
+        if(type==0)
+            q = "select link from indexer where stem=? and "+qLinks;
+        else if(type==1)
+            q = "select link from indexer where original=? and "+qLinks;
+        else if(type==2)
+            q = "select link from indexer where stem regexp ? and "+qLinks;
+        else if(type==3)
+            q = "select link from indexer where original regexp ? and "+qLinks;
+
+        res = dbman.execute(q , word, links);
         
         return res;
         
