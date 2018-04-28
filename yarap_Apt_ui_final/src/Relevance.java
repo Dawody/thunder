@@ -1,5 +1,6 @@
-//package thunder;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -17,18 +18,17 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         ind = new indexer();
         db = new DBman();
     }
-    public ArrayList<String> decide(Query_obj qb)
-    {
+    public ArrayList<String> decide(Query_obj qb) throws SQLException {
         ArrayList<String> o = new ArrayList<String>();
         int x = qb.getPh();
-        saveQueries(qb.getQuery());
+        saveQueries(qb.getQuery().toLowerCase());
         switch (x)
         {
-            case 0:
-                o = tfidf(qb.getQuery_words());
-                break;
             case 1:
                 o = phraseSearch(qb.getQuery_words());
+                break;
+            default:
+                o = tfidf(qb.getQuery_words(),x);
                 break;
         }
         return o;
@@ -84,11 +84,13 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         db.execute(query);
     }
 
-    private ArrayList<String> phraseSearch(String[] query) {
+    private ArrayList<String> phraseSearch(String[] query) throws SQLException {
         ArrayList<phraseObj> phrase_list = new ArrayList<phraseObj>();
         ArrayList<String> intersect_list = new ArrayList<String>();
         ArrayList<String> unintersect_list = new ArrayList<String>();
-        phraseObj w = new phraseObj(query[0]);
+        ArrayList<String> outp = new ArrayList<String>();
+        phraseObj w = new phraseObj(query[0].toLowerCase());
+        phrase_list.add(w);
         intersect_list = ind.getLink(w.getWord(), 1);
         for (int j = 1; j < query.length; j++) {
             phraseObj o = new phraseObj(query[j]);
@@ -107,54 +109,81 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         int flag, pos;
         for (int k = 0; k < w.getPositions().size(); k++) {
             for (int j = 0; j < w.getPosition(k).size(); j++) {
-                pos = w.getPosition(k).get(j)+1;
-                flag =1;
+                pos = w.getPosition(k).get(j) + 1;
+                flag = 1;
                 for (int i = 1; i < phrase_list.size(); i++) {
                     ArrayList<Integer> poss = phrase_list.get(i).getPosition(k);
                     if (poss.contains(pos)) {
                         pos++;
                         flag++;
-                        if(flag == phrase_list.size())
-                        {
+                        if (flag == phrase_list.size()) {
                             out_list.add(intersect_list.get(k));
                             break;
                         }
-                    }
-                    else break;
+                    } else break;
                 }
-                if (flag == phrase_list.size())
-                {
+                if (flag == phrase_list.size()) {
                     break;
                 }
             }
         }
+        Map<String, Double> result = new HashMap<String, Double>();
+        for (String s : out_list) {
+            ResultSet rs = db.execute("SELECT score FROM links WHERE link = '" + s + "'");
+            if(!rs.wasNull()) {
+                result.put(s, rs.getDouble(7));
+            }
+        }
+        Set<Entry<String, Double>> set = result.entrySet();
+        List<Entry<String, Double>> list = new ArrayList<Entry<String, Double>>(
+                set);
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            public int compare(Map.Entry<String, Double> o1,
+                               Map.Entry<String, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        for(int i = 0; i<list.size();i++) {
+            System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
+            outp.add(list.get(i).getKey());
+        }
 
-        return null;
+        return outp;
     }
 
-    private ArrayList<String> tfidf(String[] query){ //tf() * idf() for each document
+    private ArrayList<String> tfidf(String[] query, int x){ //tf() * idf() for each document
+        int []xarr={0,0};
+        if(x == 2)
+        {
+            xarr[0]=3;
+            xarr[1]=2;
+        }
+        else {
+            xarr[0]=1;
+            xarr[1]=0;
+        }
         ArrayList<TfidfObj> data = new ArrayList<TfidfObj>();
         ArrayList<String> output = new ArrayList<String>();
         int[] a={0,0};
         //----------------------------------------------------------------------------------
         //tf part
-        a = tf(query, data, a);
+        a = tf(query, data, a,xarr);
         //idf part
         idf(data, a);
         //tf-idf part
         tf_idf(data, output);
         return output;
     }
-    private int[] tf(String[] query, ArrayList<TfidfObj> d, int[] arr) {
+    private int[] tf(String[] query, ArrayList<TfidfObj> d, int[] arr ,int[] x) {
         for(int j = 0; j < query.length; j++) {
             TfidfObj o = new TfidfObj(query[j]);
             o.setStm_word(ind.stemmer(o.getOrg_word()));
-            o.setOrg_links(ind.getLink(o.getOrg_word(), 1));
-            o.setStm_links(ind.getLink(o.getStm_word(), 0));
+            o.setOrg_links(ind.getLink(o.getOrg_word(), x[0]));
+            o.setStm_links(ind.getLink(o.getStm_word(), x[1]));
             if (o.getOrg_links().size() > 0) {
-                o.setOrg_count(ind.getCount(o.getOrg_links(), query[j], 1));
+                o.setOrg_count(ind.getCount(o.getOrg_links(), query[j], x[0]));
                 if (o.getStm_links().size() > 0) {
-                    o.setStm_count(ind.getCount(o.getStm_links(), o.getStm_word(), 0));
+                    o.setStm_count(ind.getCount(o.getStm_links(), o.getStm_word(), x[1]));
                     arr[0] += o.getOrg_links().size();
                     arr[1] += o.getStm_links().size();
 
@@ -199,7 +228,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
                     set_outp.put(ob2.get(j), ob1.getOrg_links_tf().get(j) * ob1.getOrg_idf()); }
                 else {
                     set_outp.put(ob2.get(j), ob1.getOrg_links_tf().get(j) * ob1.getOrg_idf()
-                        + set_outp.get(ob2.get(j))); }
+                            + set_outp.get(ob2.get(j))); }
             }
             for (int k = 0; k < ob3.size(); k++) {
                 if (!set_outp.containsKey(ob3.get(k))){
@@ -220,7 +249,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
             }
         });
         for(int i = 0; i<list.size();i++) {
-            //System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
+            System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
             outp.add(list.get(i).getKey());
         }
     }

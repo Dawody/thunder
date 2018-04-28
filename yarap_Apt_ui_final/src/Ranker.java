@@ -11,7 +11,7 @@ public class Ranker{
     }
     
     public static void main(String args[]) throws SQLException {
-        String s = "segment tree implementation java"; // take care of (in) damage the array numbering!
+        String s = "segment tree"; // take care of (in) damage the array numbering!
         String [] s1 = s.split(" ");
 //        //---------------------------------------------------------------------
 //        indexer indx = new indexer();
@@ -34,7 +34,7 @@ public class Ranker{
 //            
 //        }
 //        //---------------------------------------------------------------------
-        int x = 0;
+        int x = 1;
         Query_obj q = new Query_obj(s,s1,x);
         Relevance r = new Relevance();
         ArrayList<String> mr = r.decide(q);
