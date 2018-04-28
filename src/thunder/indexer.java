@@ -504,7 +504,7 @@ try{
      * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ArrayList<Integer> getPositions(String link ,String word , int type){
-        res=q.getTags(link, word, type);
+        res=q.getPositions(link, word, type);
         List<Integer> positions = new ArrayList<Integer>();
         try {
             while(res.next()){
