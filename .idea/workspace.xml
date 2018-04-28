@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa3804fd-856e-464e-9634-9cc896f2eddd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/libs/AlKhalil1.1/AlKhalil1.1.iml" afterPath="$PROJECT_DIR$/libs/AlKhalil1.1/AlKhalil1.1.iml" />
-      <change beforePath="$PROJECT_DIR$/yarap_Apt_ui_final/src/Ranker.java" afterPath="$PROJECT_DIR$/yarap_Apt_ui_final/src/Ranker.java" />
       <change beforePath="$PROJECT_DIR$/yarap_Apt_ui_final/src/Relevance.java" afterPath="$PROJECT_DIR$/yarap_Apt_ui_final/src/Relevance.java" />
-      <change beforePath="$PROJECT_DIR$/yarap_Apt_ui_final/yarap_Apt_ui_final.iml" afterPath="$PROJECT_DIR$/yarap_Apt_ui_final/yarap_Apt_ui_final.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,13 +17,13 @@
       <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Relevance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="134" column="13" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="134" selection-end-column="13" />
+            <state relative-caret-position="105">
+              <caret line="133" column="49" lean-forward="false" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
               <folding>
                 <element signature="e#2190#2207#0" expanded="true" />
                 <element signature="e#2270#2287#0" expanded="true" />
                 <element signature="e#6037#6053#0" expanded="true" />
-                <marker date="1524952290135" expanded="true" signature="6132:6169" ph="SELECT score... links" />
+                <marker date="1524952642772" expanded="true" signature="6132:6169" ph="SELECT score... links" />
               </folding>
             </state>
           </provider>
@@ -86,8 +82,8 @@
       <file leaf-file-name="Popularity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Popularity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="152" column="26" lean-forward="true" selection-start-line="150" selection-start-column="12" selection-end-line="152" selection-end-column="26" />
+            <state relative-caret-position="201">
+              <caret line="108" column="22" lean-forward="true" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="29" />
               <folding>
                 <marker date="1524948557057" expanded="true" signature="5325:5362" ph="UPDATE links... " />
               </folding>
@@ -416,16 +412,15 @@
       <option name="presentableId" value="Default" />
       <updated>1524914616806</updated>
       <workItem from="1524914618830" duration="201000" />
-      <workItem from="1524916864739" duration="23624000" />
+      <workItem from="1524916864739" duration="23844000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23834000" />
+    <option name="totallyTimeSpent" value="24054000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -436,7 +431,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27733755" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27733755" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -853,16 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Popularity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="152" column="26" lean-forward="true" selection-start-line="150" selection-start-column="12" selection-end-line="152" selection-end-column="26" />
-          <folding>
-            <marker date="1524948557057" expanded="true" signature="5325:5362" ph="UPDATE links... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Ranker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -915,15 +900,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Popularity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="108" column="22" lean-forward="true" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="29" />
+          <folding>
+            <marker date="1524948557057" expanded="true" signature="5325:5362" ph="UPDATE links... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Relevance.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="134" column="13" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="134" selection-end-column="13" />
+        <state relative-caret-position="105">
+          <caret line="133" column="49" lean-forward="false" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
           <folding>
             <element signature="e#2190#2207#0" expanded="true" />
             <element signature="e#2270#2287#0" expanded="true" />
             <element signature="e#6037#6053#0" expanded="true" />
-            <marker date="1524952290135" expanded="true" signature="6132:6169" ph="SELECT score... links" />
+            <marker date="1524952642772" expanded="true" signature="6132:6169" ph="SELECT score... links" />
           </folding>
         </state>
       </provider>

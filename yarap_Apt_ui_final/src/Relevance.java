@@ -130,8 +130,8 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         Map<String, Double> result = new HashMap<String, Double>();
         for (String s : out_list) {
             ResultSet rs = db.execute("SELECT score FROM links WHERE link = '" + s + "'");
-            if(!rs.wasNull()) {
-                result.put(s, rs.getDouble(7));
+            if(rs.next()) {
+                result.put(s, rs.getDouble("score"));
             }
         }
         Set<Entry<String, Double>> set = result.entrySet();
