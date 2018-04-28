@@ -1,3 +1,4 @@
+//package dineshkrish;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,20 +9,56 @@ import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = "/paging")
 public class Results extends HttpServlet {
-
+    //private Ranker r = new Ranker();
+      String myfirst_q="";
+      int c=0;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setContentType("text/html");
-        PrintWriter out=response.getWriter();
-
+        PrintWriter out = response.getWriter();
+        String query = request.getParameter("home_search");
         String spageid=request.getParameter("page");
         int pageid=Integer.parseInt(spageid);
-        int total=10;
+        //show if query between double qutoes or not if yes return 1 no return 0
+        int ph=-1;
+        String[] query_words;
+        String []w;
 
-        String [] arr=new String[]{"https://www.geeksforgeeks.org/arrays-in-java/","https://www.facebook.com/","https://www.youtube.com/watch?v=2IqfF4WMKGc","https://github.com/",
-                "https://www.google.com.eg/","https://fantasy.premierleague.com/a/login","http://www.yallakora.com/","https://www.filgoal.com/","http://codeforces.com/",
-                "http://codeforces.com/","http://cafonline.com/","http://cima4up.tv/","http://twitter.com/","https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/",
-                "https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/" ,"https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/","https://www.geeksforgeeks.org/"};
+
+        c++;
+        if(query!=null) {
+            if(pageid==1 &&query.length()>0){myfirst_q=query;}
+            ph = clacph(myfirst_q);
+            query_words = getquery_words(ph, myfirst_q);
+            Query_object my_query = new Query_object(query_words, ph);
+            w = my_query.getQuery_words();
+        }
+
+        //split query into array of words
+
+        boolean typical=false;
+        //creat object from query and ph
+
+        System.out.println(myfirst_q);
+        MySpellChecker spellChecker = new MySpellChecker("C:\\Users\\HeshamMahmoud95\\IdeaProjects\\yarap_Apt_ui_final\\web\\WEB-INF\\dictionary\\my_dictionary.txt");
+        String after="";
+      after=spellChecker.doCorrection(myfirst_q);
+        System.out.println(after);
+        //ArrayList<String> res = r.relevance(my_query);
+
+
+        int total=10;
+        String after_correction="";
+        System.out.println("Before Correction : "+ myfirst_q);
+     //   after_correction=my_do.get_spell_correct(query);
+        System.out.println("Before Correction : "+ after_correction);
+        if (after!=myfirst_q)
+        {
+            typical=true;
+        }
+        String [] arr=new String[]{"https://www.geeksforgeeks.org/","http://www.geeksforgeeks.org/hard/","http://www.geeksforgeeks.org/geometric-algorithms/","https://practice.geeksforgeeks.org/recent.php?ref=home/","https://practice.geeksforgeeks.org/topic-tags/?ref=home/","https://practice.geeksforgeeks.org/Medium/0/0/?ref=home/","http://www.geeksforgeeks.org/mathematical-algorithms/","https://www.geeksforgeeks.org/two-dimensional-segment-tree-sub-matrix-sum/"
+        ,"https://www.geeksforgeeks.org/hard/","https://www.geeksforgeeks.org/tag/segment-tree/","https://www.geeksforgeeks.org/tag/array-range-queries/","https://www.geeksforgeeks.org/multistage-graph-shortest-path/"
+        ,"https://www.geeksforgeeks.org/page/2/","https://www.geeksforgeeks.org/page/20/","http://www.geeksforgeeks.org/data-structures/","https://www.geeksforgeeks.org/#content/","https://www.geeksforgeeks.org/"
+        ,"http://www.geeksforgeeks.org/operating-systems/","http://www.geeksforgeeks.org/fundamentals-of-algorithms/","http://www.geeksforgeeks.org/gate-cs-notes-gq/"};
         int num_pages=(int) Math.ceil(arr.length/total);
         out.println("<!DOCTYPE html>");
         out.println("<html>");
@@ -41,15 +78,16 @@ public class Results extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
 
-       out.println("<div class='Search_result'>");
+        out.println("<div class='Search_result'>");
         out.println("<img  src='/css/images/logo.png' height='15%' width='15%' >");
-        out.println("<form  action='Search_page' method='GET'>");
-          out.println(" <div class='grid-container'>");
+        out.println("<form  action='paging' method='GET'>");
+        out.println(" <div class='grid-container'>");
+        out.println("<input type='hidden' name='page' value='1'>");
         out.println("<input type='text' style='width:70%;' class='form-control input-lg' id='home_search' required placeholder='Search for..' name='home_search'>");
-            out.println("<input type='submit' style='width: 30%;' class='btn btn-info' id='home_search_bt'  value='Search' name='home_search_bt'>");
-           out.println(" </div>");
+        out.println("<input type='submit' style='width: 30%;' class='btn btn-info' id='home_search_bt'  value='Search' name='home_search_bt'>");
+        out.println(" </div>");
         out.println("</form>");
-           out.println(" <br>");
+        out.println(" <br>");
         out.println("<form  action='Regular_search' method='GET'>");
         out.println(" <div class='grid-container'>");
         out.println("<input type='text' style='width:70%;' class='form-control input-lg' required id='home_rsearch' placeholder=' Regular Search for..' name='home_rsearch'>");
@@ -57,19 +95,43 @@ public class Results extends HttpServlet {
         out.println(" </div>");
         out.println("</form>");
         out.println("</div>");
-       out.println("<br>");
         out.println("<br>");
         out.println("<br>");
         out.println("<br>");
         out.println("<br>");
         out.println("<br>");
-            out.println("<div style='margin-left:2%;' >");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("<br>");
+
+        if(typical) {
+            out.println("<p style='color:yellow; font-size:30px;'>" + "Do you maean: " + after + "</p>");
+
+        }
+        out.println("<div style='margin-left:2%;' >");
         for(int i=pageid*total-total;i<pageid*total;i++){
+            snippets snip=new snippets();
+            String sn=snip.getSnippet(arr[i],myfirst_q);
             out.print("<a href='"+arr[i]+"' style='color:#45554;'>"+"page result"+i+"</a> ");
             out.println( "<br>");
             out.println("<p style='font-size:15px; color:#FFFF29;'>"+arr[i]+"</p>");
             out.println("<div class='snippest'>");
-            out.println("<p style='font-size:18px; color:white;'>Google's generation of page titles and descriptions is completely automated and takes into account  both the content of a page as well as references to it that appear on the. </p>");
+            out.println("<p style='font-size:18px; color:white;'>"+sn+"</p>");
             out.println("</div>");
             out.println("<br>");
         }
@@ -83,4 +145,47 @@ public class Results extends HttpServlet {
         out.println("</html>");
         out.close();
     }
+    public int clacph(String query)
+    {
+        int ph=0; int flagb=0; int flage=0; int count=0;
+
+
+        for(int i=0;i<query.length();i++)
+        {
+            if(i==0 && query.charAt(i)=='"')
+            {
+                flagb=1;
+            }
+            if(i==query.length()-1 && query.charAt(i)=='"')
+            {
+                flage=1;
+            }
+            if(query.charAt(i)=='"')
+            {
+                count++;
+            }
+
+        }
+        if(flagb==1&&flage==1&&count%2==0)
+        {
+            ph=1;
+        }
+        else
+        {
+            ph=0;
+        }
+        return ph;
+    }
+    String[] getquery_words(int ph,String query)
+    {
+        if(ph==1) {
+            StringBuilder sb = new StringBuilder(query);
+            sb.deleteCharAt(0);
+            sb.deleteCharAt(query.length() - 2);
+            query = sb.toString();
+        }
+        String[] query_words = query.split(" ");
+        return query_words;
+    }
 }
+

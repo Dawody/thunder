@@ -1,3 +1,5 @@
+//package dineshkrish;
+
 public class Query_object {
     private String []query_words;
     private int ph;
@@ -13,3 +15,4 @@ public class Query_object {
         return query_words;
     }
 }
+
