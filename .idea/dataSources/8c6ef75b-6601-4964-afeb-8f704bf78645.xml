@@ -1403,7 +1403,7 @@ link2</ColNames>
     </column>
     <column id="347" parent="331" name="link">
       <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(2550)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1415,7 +1415,7 @@ link2</ColNames>
     </column>
     <column id="349" parent="331" name="original">
       <Position>5</Position>
-      <DataType>varchar(50)|0</DataType>
+      <DataType>varchar(1000)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

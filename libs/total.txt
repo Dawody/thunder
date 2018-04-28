@@ -230,7 +230,7 @@ http://www.geeksforgeeks.org/dbms/   804
 https://practice.geeksforgeeks.org/contest/geeks-classes-entrance-test/   347
 https://www.geeksforgeeks.org/select-a-random-node-from-a-singly-linked-list/   1382
 http://geeksquiz.com/quick-sort/   2881
-https://www.geeksforgeeks.org/   1043
+https://www.geeksforgeeks.org/   1027
 https://www.geeksforgeeks.org/category/algorithm/pattern-searching/   999
 https://www.geeksforgeeks.org/category/algorithm/bit-magic/   1001
 https://www.geeksforgeeks.org/page/4/   1017

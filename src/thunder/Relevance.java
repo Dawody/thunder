@@ -21,14 +21,14 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
     {
         ArrayList<String> o = new ArrayList<String>();
         int x = qb.getPh();
-        saveQueries(qb.getQuery());
+        saveQueries(qb.getQuery().toLowerCase());
         switch (x)
         {
-            case 0:
-                o = tfidf(qb.getQuery_words());
-                break;
             case 1:
                 o = phraseSearch(qb.getQuery_words());
+                break;
+            default:
+                o = tfidf(qb.getQuery_words(),x);
                 break;
         }
         return o;
@@ -132,7 +132,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         return null;
     }
 
-    private ArrayList<String> tfidf(String[] query){ //tf() * idf() for each document
+    private ArrayList<String> tfidf(String[] query, int x){ //tf() * idf() for each document
         ArrayList<TfidfObj> data = new ArrayList<TfidfObj>();
         ArrayList<String> output = new ArrayList<String>();
         int[] a={0,0};
@@ -220,7 +220,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
             }
         });
         for(int i = 0; i<list.size();i++) {
-            //System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
+            System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
             outp.add(list.get(i).getKey());
         }
     }
