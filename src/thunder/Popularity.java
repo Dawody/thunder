@@ -1,24 +1,28 @@
 package thunder;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.regex.Matcher;
 
-public class Popularity { // PageRank algorithm, score for edges between nodes
+public class Popularity extends Ranker{ // PageRank algorithm, score for edges between nodes
     static double InitialScore = 1;
-    static double d = 0.85; //damping factor in score equation
 
     private class LinkNode {
-        public String name;
-        public long out_edges;
-        public ArrayList<String> linked_nodes;
-        public double init_score;
-        public double first_score;
-        public double second_score;
-        public double third_score;
-        public double fourth_score;
-        public double fifth_score;
+        private String name;
+        private long out_edges;
+        private ArrayList<String> linked_nodes;
+        private double init_score;
+        private double first_score;
+        private double second_score;
+        private double third_score;
+        private double fourth_score;
+        private double fifth_score;
 
         LinkNode(String name, long n) {
             this.name = name;
@@ -31,6 +35,7 @@ public class Popularity { // PageRank algorithm, score for edges between nodes
         public void setThird_score(double score, int n) { this.third_score = this.second_score + score; }
         public void setFourth_score(double score, int n) { this.fourth_score = this.third_score + score; }
         public void setFifth_score(double score, int n) { this.fifth_score = this.fourth_score + score; }
+        public double getFifth_score() { return this.fifth_score; }
         public double getFourth_score() { return this.fourth_score; }
         public double getThird_score() { return this.third_score; }
         public double getSecond_score() { return this.second_score; }
@@ -95,9 +100,9 @@ public class Popularity { // PageRank algorithm, score for edges between nodes
         return s;
     }
 
-    public ArrayList<String> page_ranker() throws SQLException {
+    public void page_ranker() throws SQLException {
         //get data from tables of thunder
-        String q1 = "SELECT link, out_edges FROM links";
+        String q1 = "SELECT link, out_links FROM links WHERE visited != -1";
         ResultSet t_links = db.execute(q1);
         String x;
         LinkNode link;
@@ -105,9 +110,9 @@ public class Popularity { // PageRank algorithm, score for edges between nodes
         while (t_links.next())
         {
             link = new LinkNode(t_links.getString("link"),
-                    t_links.getLong("out_edges"));
+                    t_links.getLong("out_links"));
             x=link.getName();
-            String q2 = "SELECT link1 FROM n_outs WHERE edges.link2='"+x+"'";
+            String q2 = "SELECT link1 FROM in_out WHERE in_out.link2='"+x+"'";
             ResultSet t_edges = db.execute(q2);
             while(t_edges.next())
             {
@@ -128,7 +133,7 @@ public class Popularity { // PageRank algorithm, score for edges between nodes
                 for (int j = 0; j < update_links.size(); j++) {
                     link_name = update_links.get(j);
                     for (int k = 0; k < links.size(); k++) {
-                        if (links.get(k).getName().equals(link_name)) {
+                        if (links.get(k).getName().equals(link_name) && links.get(k).getOut_edges()>0) {
                             link = links.get(k);
                             score += (getScore(l,link) / link.getOut_edges());
                         }
@@ -139,17 +144,15 @@ public class Popularity { // PageRank algorithm, score for edges between nodes
         }
 
         //sort arraylist of links by score
-        links.sort(Comparator.comparingDouble(LinkNode::getThird_score));
-        ArrayList<String> sorted_links = new ArrayList<String>();
+        links.sort(Comparator.comparingDouble(LinkNode::getFifth_score));
+        PreparedStatement ps = DBman.myconn.prepareStatement("UPDATE links SET score=? WHERE link=?");
         for(int i=links.size()-1;i>=0;i--)
         {
-            /*System.out.println(links.get(i).getName()
-                    +" "+links.get(i).getFirst_score()
-                    +" "+links.get(i).getSecond_score()
-                    +" "+links.get(i).getThird_score()
-            );*/
-            sorted_links.add(links.get(i).getName());
+            System.out.println(links.get(i).getName()+" "+links.get(i).getFifth_score());
+            ps.setDouble(1,links.get(i).getFifth_score());
+            ps.setString(2,links.get(i).getName());
+            ps.addBatch();
         }
-        return sorted_links;
+        ps.executeBatch();
     }
 }
