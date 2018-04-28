@@ -45,6 +45,7 @@ public class indexer implements Runnable{
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
     Map<Integer,Boolean> linkStatusList = new HashMap<Integer,Boolean>();
     Map<Integer,String> linkList = new HashMap<Integer,String>();
+    Map<String,Integer> total = new HashMap<String,Integer>();
     String stop_word;
     
     
@@ -79,11 +80,12 @@ public class indexer implements Runnable{
      * @param indexQuery : 
      * @param dictionary 
      */
-    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery , HashSet dictionary){
+    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery , HashSet dictionary , Map<String,Integer> total){
         this.linkStatusList = linkStatus;
         this.files_counter =counter;
         this.qr = indexQuery;
         this.dictionary = dictionary;
+        this.total = total;
         
         setStopWordList();
         
@@ -140,6 +142,36 @@ public class indexer implements Runnable{
         }
         
     }
+
+
+
+    /**
+     * This function is responsible for preparing list of total number of words into each link
+     * this is to fix the problem of slow database!
+     * 
+     */
+    public void setTotal(){
+        try {
+            String key="";
+            int value=0;
+            Scanner inFile = new Scanner(new FileReader("libs/total.txt"));
+            while(inFile.hasNext()){
+try{
+                key=inFile.next();
+//                System.out.println("key = " + key);
+                value=inFile.nextInt();
+//                System.out.println("value = "+value);
+                total.put(key, value);
+//                System.out.println("saved!");
+}catch(Exception e){System.out.println("key = "+key + " .....value = "+value);}          
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     
     
     
@@ -299,6 +331,9 @@ public class indexer implements Runnable{
                     Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                //this line for getTotal function (increasing speed)
+                dataElement.add(new Data("dawooood", link ,counter ,"dawooood", "body", counter));
+                total.put(link, counter);
                 
                 qr.insert_all_indexes((ArrayList<Data>) dataElement);
                 files_counter++;
@@ -396,6 +431,18 @@ public class indexer implements Runnable{
         return dictionary;
     }
     
+
+
+    /**
+     *  This function serve multi threading
+     * @return 
+     */
+    public Map<String,Integer> initTotal(){
+        setTotal();
+        return total;
+    }
+
+    
     
     /**
      * This function is responsible for getting the total number of words in specific Document
@@ -403,15 +450,22 @@ public class indexer implements Runnable{
      * @return : number of words in the Document
      */
     public int getTotal(String link){
-        res = q.getTotal(link);
         
-        try {
-            if(res.next())
-                return res.getInt("total");
-        } catch (SQLException ex) {
-            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
+        int tot =0;
+        try{
+        tot = total.get(link);
+        }catch(NullPointerException e ){System.err.println("error with link : "+link);}
+        return tot;
+        
+//        res = q.getTotal(link);
+//        
+//        try {
+//            if(res.next())
+//                return res.getInt("total");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return 0;
     }
     
     

@@ -154,7 +154,7 @@ public class Query {
      * @return : number of words in the Document
      */
     public ResultSet getTotal(String link){
-        q = "select total from indexer where link=?";
+        q = "select DISTINCT(total) from indexer where original=\"dawooood\" and link=?";
         
         res = dbman.execute(q, link);
         
