@@ -134,14 +134,18 @@ public class Query {
     /**
      * This function is responsible for getting Links that contain specific word
      * @param word : single word either stemmed_word or original_word
-     * @param type : if 0 then word argument is stemmed_word ,else it is original_word
+     * @param type : if 0 then word argument is stemmed_word ,else if 1 it is original_word, else if (2,3) use regular expressions
      * @return List of Links
      */
     public ResultSet getLinks(String word,int type){
         if(type==0)
             q = "select DISTINCT(link) from indexer where stem=?";
-        else
+        else if(type==1)
             q = "select DISTINCT(link) from indexer where original=?";
+        else if(type==2)
+            q = "select DISTINCT(link) from indexer where stem regexp ?";
+        else if(type==3)
+            q = "select DISTINCT(link) from indexer where original regexp ?";
         
         res = dbman.execute(q, word);
         
@@ -166,15 +170,19 @@ public class Query {
      * This function is responsible for getting the Tags where i can find specific word in specific Document
      * @param link: the specific word
      * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
-     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @param type: if 0 then the word is stemmed_word else if 1 its an original_word,else (2,3) use regular expressions
      * @return List of Tags where i an find the specific word in the specific Document
      * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ResultSet getTags(String link,String word,int type){
         if(type==0)
             q = "select distinct(tag) from indexer where stem=? and link=?";
-        else
+        else if(type==1)
             q = "select distinct(tag) from indexer where original=? and link=?";
+        else if(type==2)
+            q = "select distinct(tag) from indexer where stem regexp ? and link=?";
+        else if (type==3)
+            q = "select distinct(tag) from indexer where original regexp ? and link=?";
         
         res = dbman.execute(q,word,link);
         
@@ -187,16 +195,20 @@ public class Query {
      * This function is responsible for getting the Positions where i can find specific word in specific Document
      * @param link: the specific word
      * @param word: the specific word that can be either stemmed_word or original_word according to the type parameter
-     * @param type: if 0 then the word is stemmed_word else its an original_word
+     * @param type: if 0 then the word is stemmed_word else if 1 its an original_word,else if(2,3) use regular expressions
      * @return List of Positions where i an find the specific word in the specific Document
      * @Note : there is no repeat in the tags , so if word is exist twice in the (body)tag i will output single (body)tag
      */
     public ResultSet getPositions(String link,String word,int type){
         if(type==0)
             q = "select distinct(position) from indexer where stem=? and link=?";
-        else
+        else if(type==1)
             q = "select distinct(position) from indexer where original=? and link=?";
-        
+        else if(type==2)
+            q = "select distinct(position) from indexer where stem regexp ? and link=?";
+        else if(type==3)
+            q = "select distinct(position) from indexer where original regexp ? and link=?";
+
         res = dbman.execute(q,word,link);
         
         return res;
@@ -223,9 +235,13 @@ public class Query {
         
         if(type==0)
             q = "select link from indexer where stem=? and "+qLinks;
-        else
+        else if(type==1)
             q = "select link from indexer where original=? and "+qLinks;
-        
+        else if(type==2)
+            q = "select link from indexer where stem regexp ? and "+qLinks;
+        else if(type==3)
+            q = "select link from indexer where original regexp ? and "+qLinks;
+
         res = dbman.execute(q , word, links);
         
         return res;
