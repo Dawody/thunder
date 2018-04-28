@@ -35,16 +35,12 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
     }
     private class phraseObj {
         private String word;
-        private ArrayList<String> links = new ArrayList<String>();
         private ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>();
 
-        private phraseObj(String w) { this.word = w; }
-        public void setLinks(ArrayList<String> links) { this.links = links; }
+        private phraseObj(String w) { this.word = w.toLowerCase(); }
         public void setPositions(ArrayList<Integer> positions) { this.positions.add(positions); }
         public ArrayList<ArrayList<Integer>> getPositions() { return positions; }
-        public ArrayList<String> getLinks() { return links; }
         public ArrayList<Integer> getPosition(int i) { return positions.get(i); }
-        public String getLink(int i) { return links.get(i); }
         public String getWord() { return word; }
     }
 
@@ -60,7 +56,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         private Map<String,Integer> org_count = new HashMap<String, Integer>();
         private Map<String,Integer> stm_count = new HashMap<String, Integer>();
 
-        private TfidfObj(String s) { this.org_word = s; }
+        private TfidfObj(String s) { this.org_word = s.toLowerCase(); }
         public void setOrg_idf(double org_idf) { this.org_idf = org_idf; }
         public void setStm_idf(double stm_idf) { this.stm_idf = stm_idf; }
         public void setOrg_links(ArrayList<String> org_links) { this.org_links = org_links; }
@@ -90,16 +86,49 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
 
     private ArrayList<String> phraseSearch(String[] query) {
         ArrayList<phraseObj> phrase_list = new ArrayList<phraseObj>();
-        for(int j = 0; j < query.length; j++) {
+        ArrayList<String> intersect_list = new ArrayList<String>();
+        ArrayList<String> unintersect_list = new ArrayList<String>();
+        phraseObj w = new phraseObj(query[0]);
+        intersect_list = ind.getLink(w.getWord(), 1);
+        for (int j = 1; j < query.length; j++) {
             phraseObj o = new phraseObj(query[j]);
-            o.setLinks(ind.getLink(query[j], 1));
+            unintersect_list = ind.getLink(o.getWord(), 1);
+            intersect_list.retainAll(unintersect_list); //intersect among links
             phrase_list.add(o);
         }
-
-           /* for(int i = 0;i<o.getLinks().size();i++) {
-                o.setPositions(ind.getPositions(o.getLink(i),query[j],1));
+        for (int i = 0; i < phrase_list.size(); i++) {
+            for (int j = 0; j < intersect_list.size(); j++) {
+                w = phrase_list.get(i);
+                w.setPositions(ind.getPositions(intersect_list.get(j), w.getWord(), 1));
             }
-        }*/
+        }
+        Set<String> out_list = new HashSet<String>();
+        w = phrase_list.get(0);
+        int flag, pos;
+        for (int k = 0; k < w.getPositions().size(); k++) {
+            for (int j = 0; j < w.getPosition(k).size(); j++) {
+                pos = w.getPosition(k).get(j)+1;
+                flag =1;
+                for (int i = 1; i < phrase_list.size(); i++) {
+                    ArrayList<Integer> poss = phrase_list.get(i).getPosition(k);
+                    if (poss.contains(pos)) {
+                        pos++;
+                        flag++;
+                        if(flag == phrase_list.size())
+                        {
+                            out_list.add(intersect_list.get(k));
+                            break;
+                        }
+                    }
+                    else break;
+                }
+                if (flag == phrase_list.size())
+                {
+                    break;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -119,8 +148,8 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
     private int[] tf(String[] query, ArrayList<TfidfObj> d, int[] arr) {
         for(int j = 0; j < query.length; j++) {
             TfidfObj o = new TfidfObj(query[j]);
-            o.setStm_word(ind.stemmer(query[j]));
-            o.setOrg_links(ind.getLink(query[j], 1));
+            o.setStm_word(ind.stemmer(o.getOrg_word()));
+            o.setOrg_links(ind.getLink(o.getOrg_word(), 1));
             o.setStm_links(ind.getLink(o.getStm_word(), 0));
             if (o.getOrg_links().size() > 0) {
                 o.setOrg_count(ind.getCount(o.getOrg_links(), query[j], 1));

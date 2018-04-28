@@ -70,7 +70,7 @@ public class indexer implements Runnable{
      * actually i use it to call function getLinkStatus()
      */
     public indexer(){
-        
+
     }
     
     /**

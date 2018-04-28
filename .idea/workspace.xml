@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa3804fd-856e-464e-9634-9cc896f2eddd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/thunder/DBman.java" afterPath="$PROJECT_DIR$/src/thunder/DBman.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/DBman.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/DBman.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$1.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$TfidfObj.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$TfidfObj.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$phraseObj.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance$phraseObj.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/Relevance.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/indexer.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/indexer.class" />
+      <change beforePath="$PROJECT_DIR$/src/thunder/Relevance.java" afterPath="$PROJECT_DIR$/src/thunder/Relevance.java" />
+      <change beforePath="$PROJECT_DIR$/src/thunder/indexer.java" afterPath="$PROJECT_DIR$/src/thunder/indexer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,16 +32,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
+            <state relative-caret-position="240">
+              <caret line="155" column="27" lean-forward="true" selection-start-line="155" selection-start-column="27" selection-end-line="155" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2338#2355#0" expanded="true" />
-                <element signature="e#2418#2435#0" expanded="true" />
-                <element signature="e#4279#4290#0" expanded="true" />
+                <element signature="e#2083#2100#0" expanded="true" />
+                <element signature="e#2163#2180#0" expanded="true" />
+                <element signature="e#4038#4049#0" expanded="true" />
+                <element signature="e#4109#4117#0" expanded="true" />
+                <element signature="e#4179#4187#0" expanded="true" />
+                <element signature="e#4886#4894#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,38 +53,11 @@
       <file leaf-file-name="indexer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
+            <state relative-caret-position="84">
+              <caret line="65" column="4" lean-forward="true" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBman.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="227" column="71" lean-forward="false" selection-start-line="227" selection-start-column="71" selection-end-line="227" selection-end-column="71" />
-              <folding>
-                <marker date="1524927807120" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-                <marker date="1524927807120" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-                <marker date="1524927807120" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-                <marker date="1524927807120" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-                <marker date="1524927807120" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-                <marker date="1524927807120" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-                <marker date="1524927807120" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-                <marker date="1524927807120" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-                <marker date="1524927807120" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-                <marker date="1524927807120" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-                <marker date="1524927807120" expanded="true" signature="5462:5492" ph="UPDATE links... " />
+                <element signature="e#1574#1590#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,6 +71,7 @@
       <find>getpositions</find>
       <find>https://www.geeksforgeeks.org/</find>
       <find>gettotal</find>
+      <find>total</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -100,12 +85,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/thunder/indexer.java" />
         <option value="$PROJECT_DIR$/src/thunder/BasicWebCrawler.java" />
         <option value="$PROJECT_DIR$/yarap_Apt_ui_final/src/snippets.java" />
         <option value="$PROJECT_DIR$/src/thunder/Ranker.java" />
-        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
         <option value="$PROJECT_DIR$/src/thunder/DBman.java" />
+        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
+        <option value="$PROJECT_DIR$/src/thunder/indexer.java" />
       </list>
     </option>
   </component>
@@ -303,12 +288,12 @@
       <option name="presentableId" value="Default" />
       <updated>1524914616806</updated>
       <workItem from="1524914618830" duration="201000" />
-      <workItem from="1524916864739" duration="8426000" />
+      <workItem from="1524916864739" duration="17138000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8636000" />
+    <option name="totallyTimeSpent" value="17348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -372,9 +357,12 @@
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2338#2355#0" expanded="true" />
-            <element signature="e#2418#2435#0" expanded="true" />
-            <element signature="e#4279#4290#0" expanded="true" />
+            <element signature="e#2083#2100#0" expanded="true" />
+            <element signature="e#2163#2180#0" expanded="true" />
+            <element signature="e#4038#4049#0" expanded="true" />
+            <element signature="e#4109#4117#0" expanded="true" />
+            <element signature="e#4179#4187#0" expanded="true" />
+            <element signature="e#4886#4894#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -385,6 +373,7 @@
           <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -455,9 +444,12 @@
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2338#2355#0" expanded="true" />
-            <element signature="e#2418#2435#0" expanded="true" />
-            <element signature="e#4279#4290#0" expanded="true" />
+            <element signature="e#2083#2100#0" expanded="true" />
+            <element signature="e#2163#2180#0" expanded="true" />
+            <element signature="e#4038#4049#0" expanded="true" />
+            <element signature="e#4109#4117#0" expanded="true" />
+            <element signature="e#4179#4187#0" expanded="true" />
+            <element signature="e#4886#4894#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -468,6 +460,7 @@
           <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -609,16 +602,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -627,23 +610,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2338#2355#0" expanded="true" />
-            <element signature="e#2418#2435#0" expanded="true" />
-            <element signature="e#4279#4290#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="227" column="71" lean-forward="false" selection-start-line="227" selection-start-column="71" selection-end-line="227" selection-end-column="71" />
+        <state relative-caret-position="50">
+          <caret line="213" column="4" lean-forward="true" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="4" />
           <folding>
             <marker date="1524927807120" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
             <marker date="1524927807120" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
@@ -662,6 +632,33 @@
             <marker date="1524927807120" expanded="true" signature="4938:4980" ph="UPDATE links... " />
             <marker date="1524927807120" expanded="true" signature="5261:5408" ph="UPDATE links... " />
             <marker date="1524927807120" expanded="true" signature="5462:5492" ph="UPDATE links... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="65" column="4" lean-forward="true" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1574#1590#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="155" column="27" lean-forward="true" selection-start-line="155" selection-start-column="27" selection-end-line="155" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2083#2100#0" expanded="true" />
+            <element signature="e#2163#2180#0" expanded="true" />
+            <element signature="e#4038#4049#0" expanded="true" />
+            <element signature="e#4109#4117#0" expanded="true" />
+            <element signature="e#4179#4187#0" expanded="true" />
+            <element signature="e#4886#4894#0" expanded="true" />
           </folding>
         </state>
       </provider>
