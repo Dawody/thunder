@@ -57,6 +57,8 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         private ArrayList<Double> stm_links_tf  = new ArrayList<Double>();
         private double org_idf = 0.0;
         private double stm_idf = 0.0;
+        private Map<String,Integer> org_count = new HashMap<String, Integer>();
+        private Map<String,Integer> stm_count = new HashMap<String, Integer>();
 
         private TfidfObj(String s) { this.org_word = s; }
         public void setOrg_idf(double org_idf) { this.org_idf = org_idf; }
@@ -66,6 +68,8 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         public void setStm_word(String stm_word) { this.stm_word = stm_word; }
         public void setOrg_link_tf(double org_link_tf) { this.org_links_tf.add(org_link_tf); }
         public void setStm_link_tf(double stm_link_tf) { this.stm_links_tf.add(stm_link_tf); }
+        public void setOrg_count(Map<String, Integer> org_count) { this.org_count = org_count; }
+        public void setStm_count(Map<String, Integer> stm_count) { this.stm_count = stm_count; }
         public ArrayList<Double> getOrg_links_tf() { return org_links_tf; }
         public ArrayList<Double> getStm_links_tf() { return stm_links_tf; }
         public double getOrg_idf() { return org_idf; }
@@ -74,6 +78,8 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         public ArrayList<String> getStm_links() { return stm_links; }
         public String getOrg_word() { return org_word; }
         public String getStm_word() { return stm_word; }
+        public int getOrg_count(String i) { return org_count.get(i); }
+        public int getStm_count(String i) { return stm_count.get(i); }
     }
 
     private void saveQueries(String q) {
@@ -113,20 +119,22 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
             o.setStm_word(ind.stemmer(query[j]));
             o.setOrg_links(ind.getLink(query[j],1));
             o.setStm_links(ind.getLink(o.getStm_word(),0));
+            o.setOrg_count(ind.getCount(o.getOrg_links(),query[j],1));
+            o.setStm_count(ind.getCount(o.getStm_links(),o.getStm_word(),0));
             arr[0] += o.getOrg_links().size();
             arr[1] += o.getStm_links().size();
 
             for(int i = 0; i < o.getOrg_links().size(); i++)
             {
                 double total = ind.getTotal(o.getOrg_links().get(i));
-                double count= ind.getCount(o.getOrg_links().get(i),query[j],1);
+                double count= o.getOrg_count(o.getOrg_links().get(i));
                 double tf = count/total*1000;
                 o.setOrg_link_tf(tf);
             }
             for(int i = 0; i < o.getStm_links().size(); i++)
             {
                 double total = ind.getTotal(o.getStm_links().get(i));
-                double count= ind.getCount(o.getStm_links().get(i),o.getStm_word(),0);
+                double count= o.getStm_count(o.getStm_links().get(i));
                 double tf = count/total*1000;
                 o.setStm_link_tf(tf);
             }
