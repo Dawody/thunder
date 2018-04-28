@@ -15,9 +15,13 @@ CREATE TABLE `links` (
   `lastchanged` int(11) NOT NULL DEFAULT '0',
   `changed` int(1) NOT NULL DEFAULT '0',
   `visited` int(5) NOT NULL DEFAULT '-1',
-  `out_links` int(11) NOT NULL DEFAULT '0'
+  `out_links` int(11) NOT NULL DEFAULT '0',
+  `score` DOUBLE NOT NULL DEFAULT '0.0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `queries` (
+  `query` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table indexer(
 	id int unsigned NOT NULL auto_increment, 
@@ -29,9 +33,6 @@ create table indexer(
 	position int unsigned not null , 
 	primary key (id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 
 
 
@@ -48,7 +49,8 @@ ALTER TABLE `links`
 COMMIT;
 ALTER TABLE `links` ADD UNIQUE(`link`);
 
-
+ALTER TABLE `queries`
+  ADD UNIQUE KEY (`query`);
 
 CREATE TABLE `in_out` ( 
 `link1` varchar(255) NOT NULL , 
