@@ -46,65 +46,65 @@ public class Thunder {
 //TEST insertion
 
 
-//        for(int i=0 ; i<1 ; i++){
-//            Thread t1 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
-//            Thread t2 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
-//            Thread t3 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
-//            Thread t4 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
-//            t1.start();
-//            t2.start();
-//            t3.start();
-//            t4.start();
-//            
-//            
-//            try {
-//                t1.join();
-//                t2.join();
-//                t3.join();
-//                t4.join();
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Thunder.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//        }
-//        
-//        System.out.println("indexing finish..");
-//        ArrayList<Integer> linkIds = new ArrayList<Integer>();
-//        for (Map.Entry<Integer, Boolean> entry : linkStatus.entrySet())
-//        {
-//            if(!entry.getValue())
-//            {
-//                linkIds.add(entry.getKey());
-//            }
-//                
-//                            
-//        }
-//        System.out.println("start to update link status..");
-//        indx.updateLinkStatus(linkIds);
-//
-//
-//
-//        System.out.println("start to save the dictionary");
-//        File file = new File("libs/dictionary.txt");
-//        PrintWriter writer = new PrintWriter(file);
-//        for(Object str : dictionary)
-//        {
-//            writer.print(str.toString()+"\n");
-//        }
-//        
-//        System.out.println("start to save totals");
-//        file = new File("libs/total.txt");
-//        writer = new PrintWriter(file);
-//        for(Map.Entry<String,Integer> mp : total.entrySet())
-//        {
-//            writer.print(mp.getKey()+"   "+mp.getValue()+"\n");
-//        }
-//        
-//        
-//        
-//        writer.close();
-//        
-//        System.out.println("INDEXER FINISH");
+        for(int i=0 ; i<1 ; i++){
+            Thread t1 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
+            Thread t2 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
+            Thread t3 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
+            Thread t4 = new Thread(new indexer(linkStatus,counter,qr, (HashSet) dictionary,total));
+            t1.start();
+            t2.start();
+            t3.start();
+            t4.start();
+            
+            
+            try {
+                t1.join();
+                t2.join();
+                t3.join();
+                t4.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Thunder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
+        System.out.println("indexing finish..");
+        ArrayList<Integer> linkIds = new ArrayList<Integer>();
+        for (Map.Entry<Integer, Boolean> entry : linkStatus.entrySet())
+        {
+            if(!entry.getValue())
+            {
+                linkIds.add(entry.getKey());
+            }
+                
+                            
+        }
+        System.out.println("start to update link status..");
+        indx.updateLinkStatus(linkIds);
+
+
+
+        System.out.println("start to save the dictionary");
+        File file = new File("libs/dictionary.txt");
+        PrintWriter writer = new PrintWriter(file);
+        for(Object str : dictionary)
+        {
+            writer.print(str.toString()+"\n");
+        }
+        
+        System.out.println("start to save totals");
+        file = new File("libs/total.txt");
+        writer = new PrintWriter(file);
+        for(Map.Entry<String,Integer> mp : total.entrySet())
+        {
+            writer.print(mp.getKey()+"   "+mp.getValue()+"\n");
+        }
+        
+        
+        
+        writer.close();
+        
+        System.out.println("INDEXER FINISH");
         
         //------------------------------------------------------------------------------
         
@@ -114,13 +114,13 @@ public class Thunder {
 
 //
 //TEST select link where stemmed_word or original_word =some_value
-        List<String> links = new ArrayList<String>();
-        links = indx.getLink("code",1);
-        for(String link :links){
-            System.out.println("link : "+link);
-
-            System.out.println("numer of total words in Document is "+indx.getTotal(link));
-        }
+//        List<String> links = new ArrayList<String>();
+//        links = indx.getLink("code",1);
+//        for(String link :links){
+//            System.out.println("link : "+link);
+//
+//            System.out.println("numer of total words in Document is "+indx.getTotal(link));
+//        }
 
 
 //TEST select total number of words in specfic link
