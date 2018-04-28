@@ -56,7 +56,17 @@ public class DBman {
         resultset.next();
         return resultset.getInt("id");
     }
-    
+
+    public int GetVisited(int id) throws Exception {
+        Statement stmt;
+        ResultSet resultset;
+        stmt = myconn.createStatement();
+        resultset = stmt.executeQuery("SELECT visited FROM links WHERE id = " + id);
+        resultset.next();
+        return resultset.getInt("visited");
+    }
+
+
     public void IncCounter() throws Exception {
         Statement stmt;
         stmt = myconn.createStatement();
@@ -64,7 +74,7 @@ public class DBman {
     }
     
     public void SetCount(int x) throws Exception {
-        Statement stmt = null;
+        Statement stmt;
         stmt = myconn.createStatement();
         stmt.executeUpdate("UPDATE counter SET id = " + x + " LIMIT 1;");
     }
@@ -77,9 +87,9 @@ public class DBman {
         ResultSet rs = stmt.getGeneratedKeys();
         //rs.next();
         //System.out.println(rs.getInt(1));
-        
-        
-        
+
+
+
         if(rs.next())
         {
             return rs.getInt(1);
@@ -90,16 +100,24 @@ public class DBman {
             resultset.next();
             return resultset.getInt(1);
         }
-        
+
     }
+
+
+    public void addOutLinks(int id,int num) throws Exception {
+        Statement stmt = null;
+        stmt = myconn.createStatement();
+        stmt.executeUpdate("UPDATE links SET out_links = "+num+" WHERE id = "+ id);
+    }
+
     
     
     public void GetQueueAndSet(int x, Set<String> links, BlockingQueue<link> urls) throws Exception {
-        Statement stmt = null;
-        ResultSet resultset = null;
+        Statement stmt;
+        ResultSet resultset;
         stmt = myconn.createStatement();
         //int n = GetCounter();
-        resultset = stmt.executeQuery("SELECT * FROM links WHERE visited <= 0 AND countdown = 0");/*LIMIT 5000 - "+n*/
+        resultset = stmt.executeQuery("SELECT * FROM links WHERE visited <= 0 AND countdown = 0 LIMIT 10000");/*LIMIT 5000 - "+n*/
         while (resultset.next()) {
             urls.add(new link(resultset.getString("link"), resultset.getInt("id")));
         }
@@ -141,6 +159,7 @@ public class DBman {
         stmt = myconn.createStatement();
         stmt.executeUpdate("UPDATE links SET visited = '1' WHERE id = " + id);
     }
+
     
     public void Reset() throws Exception {
         //Statement stmt = null;
@@ -450,7 +469,14 @@ public class DBman {
         return null;
     }
     
-    
+    /**
+     * the old function for getCount
+     * Don't delete it!
+     * @param query
+     * @param word
+     * @param link
+     * @return 
+     */
     public ResultSet execute(String query,String word,String link){
         
         if(conn!=null)
@@ -469,6 +495,42 @@ public class DBman {
         }
         return null;
     }
+    
+    /**
+     * the new function for getCount
+     * @param query
+     * @param word
+     * @param link
+     * @return 
+     */
+    public ResultSet execute(String query,String word,ArrayList<String> links){
+        
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+                int counter =1;
+                mypstm.setString(counter,word);
+                
+                for(String link : links)
+                {
+                    counter++;
+                    mypstm.setString(counter, link);
+                }
+                myres=mypstm.executeQuery();
+                return myres;
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    
+    
+    
+    
     
     
     public ResultSet execute(String query){
