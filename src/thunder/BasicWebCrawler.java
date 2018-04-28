@@ -71,14 +71,14 @@ public class BasicWebCrawler {
             int count = dbman.GetCounter();
             int count2 = count;
             AtomicInteger counter = new AtomicInteger(count);
-            executorService = Executors.newFixedThreadPool(50);
+            executorService = Executors.newFixedThreadPool(10);
 
             dbman.GetQueueAndSet(count, links, urls);
             while (true) {
-                if (counter.get() >= 5000) {
+                if (counter.get() >= 30) {
                     break;
                 }
-                if (!urls.isEmpty()&&count2<=6000) {
+                if (!urls.isEmpty()) {
                     count2++;
                     link y = urls.remove();
                     executorService.execute(new crawler(y, links, urls,counter));
@@ -235,6 +235,13 @@ class crawler implements Runnable {
 //                    Connection.Response html = Jsoup.connect(URL.Name).execute();
 //                    System.out.println(html.body());
                     Document document = Jsoup.connect(URL.Name).get();
+                    Elements paragraphs = document.select("p");
+//                    for(Element p : paragraphs)
+//                    {
+//                        System.out.println(p.text());
+//                    }
+
+
                     File f = new File("documents/" + URL.id + ".html");
 //                    File f2 = new File("temp.html");
                     String s;
@@ -253,7 +260,7 @@ class crawler implements Runnable {
 //                        boolean isTwoEqual = FileUtils.contentEquals(file1, file2);
                         String TextToCompare = new String(Files.readAllBytes(Paths.get("documents/" + URL.id + ".html")));
 //                        String TextToCompare2 = new String(Files.readAllBytes(Paths.get("documents/temp.html")));
-                        if (TextToCompare.equals(document.toString())) {
+                        if (TextToCompare.equals(document.outerHtml())) {
                             s="exists and equal";
                             BasicWebCrawler.dbman.SetLastChanged(URL.id, 1);
                         } else {
@@ -264,7 +271,7 @@ class crawler implements Runnable {
 //                            writer.close();
                             FileWriter fi = new FileWriter("documents/" + URL.id + ".html");
                             BufferedWriter writer = new BufferedWriter(fi);
-                            writer.write(document.toString());
+                            writer.write(document.outerHtml());
 //                            writer.write(html.body());
                             writer.close();
                             fi.close();
@@ -324,10 +331,10 @@ class crawler implements Runnable {
 ////                        int id = rs.getInt(1);
 //                    }
 //                    System.out.println(nn+"  "+temp.size());
-                    if(urls.size()+counter.get()<=6000)
-                    {
-                        urls.addAll(temp);
-                    }
+//                    if(urls.size()+counter.get()<=6000)
+//                    {
+//                        urls.addAll(temp);
+//                    }
 //                    for (int i=0;i<temp.size();i++)
 //                    {
 //                        urls.add(temp.get(i));
