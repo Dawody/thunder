@@ -26,5 +26,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="yarap_Apt_ui_final" />
   </component>
 </module>

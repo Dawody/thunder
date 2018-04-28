@@ -3,9 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="fa3804fd-856e-464e-9634-9cc896f2eddd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/BasicWebCrawler.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/BasicWebCrawler.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/crawler.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/crawler.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/thunder/thunder/indexer.class" afterPath="$PROJECT_DIR$/out/production/thunder/thunder/indexer.class" />
+      <change beforePath="$PROJECT_DIR$/src/thunder/BasicWebCrawler.java" afterPath="$PROJECT_DIR$/src/thunder/BasicWebCrawler.java" />
+      <change beforePath="$PROJECT_DIR$/src/thunder/DBman.java" afterPath="$PROJECT_DIR$/src/thunder/DBman.java" />
       <change beforePath="$PROJECT_DIR$/src/thunder/Ranker.java" afterPath="$PROJECT_DIR$/src/thunder/Ranker.java" />
       <change beforePath="$PROJECT_DIR$/src/thunder/Relevance.java" afterPath="$PROJECT_DIR$/src/thunder/Relevance.java" />
-      <change beforePath="$PROJECT_DIR$/src/thunder/indexer.java" afterPath="$PROJECT_DIR$/src/thunder/indexer.java" />
+      <change beforePath="$PROJECT_DIR$/thunder.iml" afterPath="$PROJECT_DIR$/thunder.iml" />
+      <change beforePath="$PROJECT_DIR$/yarap_Apt_ui_final/src/snippets.java" afterPath="$PROJECT_DIR$/yarap_Apt_ui_final/src/snippets.java" />
+      <change beforePath="$PROJECT_DIR$/yarap_Apt_ui_final/yarap_Apt_ui_final.iml" afterPath="$PROJECT_DIR$/yarap_Apt_ui_final/yarap_Apt_ui_final.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,71 +27,35 @@
       <file leaf-file-name="Ranker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="21">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="129" column="70" lean-forward="true" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
-              <folding>
-                <element signature="e#2338#2355#0" expanded="true" />
-                <element signature="e#2418#2435#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="indexer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="544" column="67" lean-forward="true" selection-start-line="544" selection-start-column="67" selection-end-line="544" selection-end-column="67" />
+            <state relative-caret-position="366">
+              <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2338#2355#0" expanded="true" />
+                <element signature="e#2418#2435#0" expanded="true" />
+                <element signature="e#4279#4290#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Query.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thunder/Query.java">
+      <file leaf-file-name="indexer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="241" column="24" lean-forward="true" selection-start-line="241" selection-start-column="24" selection-end-line="241" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBman.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3">
-              <caret line="211" column="4" lean-forward="true" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+            <state relative-caret-position="93">
+              <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
               <folding>
-                <marker date="1524918613736" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-                <marker date="1524918613736" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-                <marker date="1524918613736" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-                <marker date="1524918613736" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-                <marker date="1524918613736" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-                <marker date="1524918613736" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-                <marker date="1524918613736" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-                <marker date="1524918613736" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-                <marker date="1524918613736" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-                <marker date="1524918613736" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-                <marker date="1524918613736" expanded="true" signature="5462:5492" ph="UPDATE links... " />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,6 +66,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>getcount</find>
+      <find>getpositions</find>
+      <find>https://www.geeksforgeeks.org/</find>
+      <find>gettotal</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,9 +83,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/thunder/indexer.java" />
-        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
-        <option value="$PROJECT_DIR$/src/thunder/Ranker.java" />
+        <option value="$PROJECT_DIR$/src/thunder/BasicWebCrawler.java" />
+        <option value="$PROJECT_DIR$/yarap_Apt_ui_final/src/snippets.java" />
         <option value="$PROJECT_DIR$/src/thunder/DBman.java" />
+        <option value="$PROJECT_DIR$/src/thunder/Ranker.java" />
+        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
       </list>
     </option>
   </component>
@@ -157,6 +133,17 @@
             <path>
               <item name="thunder" type="b2602c69:ProjectViewProjectNode" />
               <item name="thunder" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thunder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thunder" type="462c0819:PsiDirectoryNode" />
+              <item name="yarap_Apt_ui_final" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thunder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thunder" type="462c0819:PsiDirectoryNode" />
+              <item name="yarap_Apt_ui_final" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -303,12 +290,12 @@
       <option name="presentableId" value="Default" />
       <updated>1524914616806</updated>
       <workItem from="1524914618830" duration="201000" />
-      <workItem from="1524916864739" duration="1750000" />
+      <workItem from="1524916864739" duration="7678000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1960000" />
+    <option name="totallyTimeSpent" value="7888000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -316,14 +303,14 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27733755" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -335,7 +322,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39936608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -352,7 +339,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="10" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -369,8 +358,10 @@
         <state relative-caret-position="609">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#2338#2355#0" expanded="true" />
             <element signature="e#2418#2435#0" expanded="true" />
+            <element signature="e#4279#4290#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -390,23 +381,23 @@
         <state relative-caret-position="4305">
           <caret line="218" column="4" lean-forward="false" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
           <folding>
-            <marker date="1524918613736" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-            <marker date="1524918613736" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-            <marker date="1524918613736" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-            <marker date="1524918613736" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5462:5492" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
+            <marker date="1524920734873" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
+            <marker date="1524920734873" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
+            <marker date="1524920734873" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="3050:3098" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="4124:4182" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4266:4344" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4386:4426" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4686:4728" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4938:4980" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5261:5408" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5462:5492" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -450,8 +441,10 @@
         <state relative-caret-position="541">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#2338#2355#0" expanded="true" />
             <element signature="e#2418#2435#0" expanded="true" />
+            <element signature="e#4279#4290#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -471,23 +464,23 @@
         <state relative-caret-position="163">
           <caret line="218" column="4" lean-forward="false" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
           <folding>
-            <marker date="1524918613736" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-            <marker date="1524918613736" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-            <marker date="1524918613736" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-            <marker date="1524918613736" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5462:5492" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
+            <marker date="1524920734873" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
+            <marker date="1524920734873" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
+            <marker date="1524920734873" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="3050:3098" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="4124:4182" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4266:4344" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4386:4426" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4686:4728" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4938:4980" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5261:5408" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5462:5492" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -536,21 +529,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
+    <entry file="file://$PROJECT_DIR$/src/thunder/BasicWebCrawler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        <state relative-caret-position="132">
+          <caret line="9" column="2" lean-forward="false" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding>
+            <marker date="1524918852268" expanded="true" signature="10932:10974" ph="INSERT IGNOR... links" />
+            <marker date="1524918852268" expanded="true" signature="11053:11105" ph="INSERT IGNOR... in_out" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Query_object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Results.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="129" column="70" lean-forward="true" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
+        <state relative-caret-position="84">
+          <caret line="4" column="46" lean-forward="true" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Regular_search.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Search_page.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/snippets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="518" column="17" lean-forward="true" selection-start-line="518" selection-start-column="17" selection-end-line="518" selection-end-column="17" />
           <folding>
-            <element signature="e#2338#2355#0" expanded="true" />
-            <element signature="e#2418#2435#0" expanded="true" />
+            <marker date="1524920734873" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
+            <marker date="1524920734873" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
+            <marker date="1524920734873" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
+            <marker date="1524920734873" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
+            <marker date="1524920734873" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
+            <marker date="1524920734873" expanded="true" signature="3050:3098" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
+            <marker date="1524920734873" expanded="true" signature="4124:4182" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4266:4344" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4386:4426" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4686:4728" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="4938:4980" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5261:5408" ph="UPDATE links... " />
+            <marker date="1524920734873" expanded="true" signature="5462:5492" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -558,43 +609,46 @@
     <entry file="file://$PROJECT_DIR$/src/thunder/Query.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
-          <caret line="241" column="24" lean-forward="true" selection-start-line="241" selection-start-column="24" selection-end-line="241" selection-end-column="24" />
+          <caret line="241" column="24" lean-forward="false" selection-start-line="241" selection-start-column="24" selection-end-line="241" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
+    <entry file="file://$PROJECT_DIR$/libs/total.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="211" column="4" lean-forward="true" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
-          <folding>
-            <marker date="1524918613736" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-            <marker date="1524918613736" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-            <marker date="1524918613736" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-            <marker date="1524918613736" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-            <marker date="1524918613736" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-            <marker date="1524918613736" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-            <marker date="1524918613736" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-            <marker date="1524918613736" expanded="true" signature="5462:5492" ph="UPDATE links... " />
-          </folding>
+        <state relative-caret-position="179">
+          <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="544" column="67" lean-forward="true" selection-start-line="544" selection-start-column="67" selection-end-line="544" selection-end-column="67" />
+        <state relative-caret-position="93">
+          <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2338#2355#0" expanded="true" />
+            <element signature="e#2418#2435#0" expanded="true" />
+            <element signature="e#4279#4290#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -89,13 +89,17 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
     }
 
     private ArrayList<String> phraseSearch(String[] query) {
+        ArrayList<phraseObj> phrase_list = new ArrayList<phraseObj>();
         for(int j = 0; j < query.length; j++) {
             phraseObj o = new phraseObj(query[j]);
             o.setLinks(ind.getLink(query[j], 1));
-            for(int i = 0;i<o.getLinks().size();i++) {
+            phrase_list.add(o);
+        }
+
+           /* for(int i = 0;i<o.getLinks().size();i++) {
                 o.setPositions(ind.getPositions(o.getLink(i),query[j],1));
             }
-        }
+        }*/
         return null;
     }
 
@@ -113,32 +117,33 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
         return output;
     }
     private int[] tf(String[] query, ArrayList<TfidfObj> d, int[] arr) {
-        for(int j = 0; j < query.length; j++)
-        {
+        for(int j = 0; j < query.length; j++) {
             TfidfObj o = new TfidfObj(query[j]);
             o.setStm_word(ind.stemmer(query[j]));
-            o.setOrg_links(ind.getLink(query[j],1));
-            o.setStm_links(ind.getLink(o.getStm_word(),0));
-            o.setOrg_count(ind.getCount(o.getOrg_links(),query[j],1));
-            o.setStm_count(ind.getCount(o.getStm_links(),o.getStm_word(),0));
-            arr[0] += o.getOrg_links().size();
-            arr[1] += o.getStm_links().size();
+            o.setOrg_links(ind.getLink(query[j], 1));
+            o.setStm_links(ind.getLink(o.getStm_word(), 0));
+            if (o.getOrg_links().size() > 0) {
+                o.setOrg_count(ind.getCount(o.getOrg_links(), query[j], 1));
+                if (o.getStm_links().size() > 0) {
+                    o.setStm_count(ind.getCount(o.getStm_links(), o.getStm_word(), 0));
+                    arr[0] += o.getOrg_links().size();
+                    arr[1] += o.getStm_links().size();
 
-            for(int i = 0; i < o.getOrg_links().size(); i++)
-            {
-                double total = ind.getTotal(o.getOrg_links().get(i));
-                double count= o.getOrg_count(o.getOrg_links().get(i));
-                double tf = count/total*1000;
-                o.setOrg_link_tf(tf);
+                    for (int i = 0; i < o.getOrg_links().size(); i++) {
+                        double total = ind.getTotal(o.getOrg_links().get(i));
+                        double count = o.getOrg_count(o.getOrg_links().get(i));
+                        double tf = count / total * 1000;
+                        o.setOrg_link_tf(tf);
+                    }
+                    for (int i = 0; i < o.getStm_links().size(); i++) {
+                        double total = ind.getTotal(o.getStm_links().get(i));
+                        double count = o.getStm_count(o.getStm_links().get(i));
+                        double tf = count / total * 1000;
+                        o.setStm_link_tf(tf);
+                    }
+                    d.add(o);
+                }
             }
-            for(int i = 0; i < o.getStm_links().size(); i++)
-            {
-                double total = ind.getTotal(o.getStm_links().get(i));
-                double count= o.getStm_count(o.getStm_links().get(i));
-                double tf = count/total*1000;
-                o.setStm_link_tf(tf);
-            }
-            d.add(o);
         }
         return arr;
     }
@@ -186,7 +191,7 @@ public class Relevance { // TF-IDF score for keywords in query found in the docu
             }
         });
         for(int i = 0; i<list.size();i++) {
-            System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
+            //System.out.println(list.get(i).getKey()+" "+list.get(i).getValue());
             outp.add(list.get(i).getKey());
         }
     }
