@@ -6,21 +6,25 @@
 package thunder;
 
 //import com.mysql.jdbc.ResultSet;
+import static com.sun.xml.internal.ws.api.streaming.XMLStreamWriterFactory.set;
 import org.mariadb.jdbc.internal.com.read.resultset.SelectResultSet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import static java.lang.reflect.Array.set;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
@@ -37,36 +41,53 @@ public class indexer implements Runnable{
     ResultSet res;
     Integer files_counter;
     Query q = new Query();
+    Set dictionary = new HashSet();
     Map<String, Integer> stopWordList = new HashMap<String, Integer>();
     Map<Integer,Boolean> linkStatusList = new HashMap<Integer,Boolean>();
     Map<Integer,String> linkList = new HashMap<Integer,String>();
+    Map<String,Integer> total = new HashMap<String,Integer>();
     String stop_word;
     
+    
     Query qr = new Query();
-        int counter=0;
-        List<Data> dataElement = new ArrayList<Data>();
-        String filePath="documents";
-        File directory = new File(filePath);
-        File [] files = directory.listFiles();
-        BufferedReader br ;
-        String line,lines;
-        String body;
-        String head;
-        String link;
-        String [] words;
-        String small_word,stem_word;
+    int counter=0;
+    List<Data> dataElement = new ArrayList<Data>();
+    String filePath="documents";
+    File directory = new File(filePath);
+    File [] files = directory.listFiles();
+    BufferedReader br ;
+    String line,lines;
+    String body;
+    String head;
+    String link;
+    String [] words;
+    String small_word,stem_word;
     
     
+    /**
+     * This constructor is used for tacking object of Indexer for non-indexing usage !
+     * actually i use it to call function getLinkStatus()
+     */
     public indexer(){
-        //setStopWordList();
         
     }
     
-    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery){
-        setStopWordList();
+    /**
+     * the main for indexing .
+     * 
+     * @param linkStatus : before indexing any link i need to check if that link content was changed or not . so indexing will be useful not repeated.
+     * @param counter :
+     * @param indexQuery : 
+     * @param dictionary 
+     */
+    public indexer(Map<Integer,Boolean> linkStatus , Integer counter , Query indexQuery , HashSet dictionary , Map<String,Integer> total){
         this.linkStatusList = linkStatus;
         this.files_counter =counter;
         this.qr = indexQuery;
+        this.dictionary = dictionary;
+        this.total = total;
+        
+        setStopWordList();
         
         
         
@@ -84,7 +105,11 @@ public class indexer implements Runnable{
         
     }
     
-    
+    /**
+     * This function is responsible for preparing list of stop words
+     * i read them from text file in lib folder. they are previously prepared in that file
+     *
+     */
     public void setStopWordList(){
         try {
             Scanner inFile = new Scanner(new FileReader("libs/stopWordList.txt"));
@@ -97,6 +122,56 @@ public class indexer implements Runnable{
         }
         
     }
+
+
+
+    /**
+     * This function is responsible for preparing set of words that are needed for "did you mean" feature
+     * 
+     */
+    public void setDictionary(){
+        try {
+            Scanner inFile = new Scanner(new FileReader("libs/dictionary.txt"));
+            while(inFile.hasNext()){
+                stop_word=inFile.next();
+                dictionary.add(stop_word);
+          
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+
+
+    /**
+     * This function is responsible for preparing list of total number of words into each link
+     * this is to fix the problem of slow database!
+     * 
+     */
+    public void setTotal(){
+        try {
+            String key="";
+            int value=0;
+            Scanner inFile = new Scanner(new FileReader("libs/total.txt"));
+            while(inFile.hasNext()){
+try{
+                key=inFile.next();
+//                System.out.println("key = " + key);
+                value=inFile.nextInt();
+//                System.out.println("value = "+value);
+                total.put(key, value);
+//                System.out.println("saved!");
+}catch(Exception e){System.out.println("key = "+key + " .....value = "+value);}          
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     
     
     
@@ -114,73 +189,74 @@ public class indexer implements Runnable{
      * ____________________________________________________________________
      *
      * this function is responsible for the following
-     * 0. Delete the Data List and start counting from zero
-     * 1. i read all files in the directory specified  by the file_path variable
-     * 2. for each file i read line by line (First Line is the Link of the Document)
-     * 3. then i use Jsoup for HTML parsing
-     * 4. then i use REGEX for removing all non-letters or non-numbers and replace them by spaces
-     * 5. for each line i separate it's words by spaces (" ")
-     * 7. for each word i convert all letters to lowercase
-     * 8. for each word i do stemming using snowball library , other options : porter(before snowball), lancaster(agressive)
+     * 1.check that file is realy file not folder ,stc.
+     * 2. extract the file number and ignore the extention (.thml)
+     * 3. if that file is not crawled completely ignore it now
+     * 4. if that file is not changed or in other meaning (had been indexed before) ignore it also
+     * 5. if that file is completely crawled and didn't indexed before or had been changed after indexing , so start index that file
+     * 6. Delete the Data List and start counting from zero
+     * 7. for each file i read line by line
+     * 8. then i use Jsoup for HTML parsing .. i parse it into head and body only.
+     * 9. then i use REGEX for removing all non-letters or non-numbers and replace them by spaces (this feature is canceled because i need some non letters and non numbers symbols like logical and mathematic symbols)
+     * --the next operations i d twice . one time for the head text and another time for the body text
+     * 10. for each line i separate it's words by spaces (" ")
+     * 7. for each word i convert all letters to lowercase .. the output from this operation is the original word in the database
+     * 8. for each word i do stemming using snowball library , other options/tools for stemming : porter(before snowball), lancaster(agressive)
      * 9. then i remove the empty words and stop words.
-     * 10.Finally i add the word to the Data List.
-     *
+     * 10.Finally i add the word to the Data List. .. this is the stem word in the database
+     *--------------------
+     * 
      * finally this function perform some modifications on the database
      * till now i am only save all words i catch even if repeated in the file or in the database!
      */
     public void indexFiles(){
         
-        
-        
-        
+        for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory            
             
-        
-        for(int i =0 ; i<files.length ; i++){ //for eatch file in the directory
-        
-            if(!files[i].isFile())
+            
+            //1.check that file is realy file not folder ,stc.
+            if(!files[i].isFile()) //files is ArrayList carries the files that had found in file path directory
             {
-        
+                
                 //if not file : continue
                 continue;
             }
             
             
-            
+            //2. extract the file number and ignore the extention (.thml)
             String fileName = files[i].getName();
-            int fileId = Integer.parseInt(fileName.substring(0, fileName.length() - 5));
- 
+            int fileId = Integer.parseInt(fileName.substring(0, fileName.length() - 5)); 
             
-                       
-            
+                        
+            //3. if that file is not crawled completely ignore it now
             if(linkStatusList.get(fileId)==null)
             {
                 //if not existed in the link lists : continue
                 continue;
             }
-                
             
-             
+            
+            //4. if that file is not changed or in other meaning (had been indexed before) ignore it also
             if(linkStatusList.get(fileId)==false)
             {
                 //if not changed : continue
                 continue;
             }
-                
-
+            
+            //5. if that file is completely crawled and didn't indexed before or had been changed after indexing , so start index that file
             if(linkStatusList.get(fileId)){
-                synchronized(linkStatusList){
+                synchronized(linkStatusList){   //to prevent two indexer threads from indexing the same file in the same time
                     if(!linkStatusList.get(fileId))
                         continue;
-                    //files_counter++;
-                    System.out.println("worked file : "+fileId);
+                    System.out.println("working file : "+fileId);
                     linkStatusList.put(fileId, false);
                     
                 }
                 
                 
-                        
-
                 
+                
+                //count words into the document and clean the data of the previous documents
                 counter=1;
                 dataElement.clear();
                 
@@ -188,8 +264,8 @@ public class indexer implements Runnable{
                     
                     br = new BufferedReader(new FileReader(files[i]));
                     
-                    //extracting the link of the document
-                    link = linkList.get(fileId);//br.readLine();
+                    //get the link name .. it was stored in the constructor function
+                    link = linkList.get(fileId);
                     
                     //collecting the text from the document line by line
                     lines="";
@@ -209,6 +285,7 @@ public class indexer implements Runnable{
                     //body = body.replaceAll("[^a-zA-Z0-9 ]", " ");
                     //head = head.replaceAll("[^a-zA-Z0-9 ]", " ");
                     
+                    
                     //split and store
                     words = head.split(" ");
                     for(String word : words ){
@@ -219,6 +296,7 @@ public class indexer implements Runnable{
                         if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
                             continue;
                         
+                        dictionary.add(small_word);
                         dataElement.add(new Data(stem_word, link ,counter ,small_word, "header", counter));
                         counter++;
                     }
@@ -233,6 +311,7 @@ public class indexer implements Runnable{
                         if(stopWordList.get(stem_word)!=null || stem_word.equals(""))
                             continue;
                         
+                        dictionary.add(small_word);
                         dataElement.add(new Data(stem_word, link ,counter ,small_word, "body", counter));
                         counter++;
                     }
@@ -252,22 +331,28 @@ public class indexer implements Runnable{
                     Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                //this line for getTotal function (increasing speed)
+                dataElement.add(new Data("dawooood", link ,counter ,"dawooood", "body", counter));
+                total.put(link, counter);
                 
-                //synchronized(files_counter){
                 qr.insert_all_indexes((ArrayList<Data>) dataElement);
                 files_counter++;
                 System.out.println(files_counter +" Total number of recoreds by this file ("+files[i] +") = "+counter);
-                //}
                 
             }//the end of the file
         }//the end of the Directory
-                
+        
         
     }//the end of the indexer
     
     
     
     
+    
+    
+    //------------------------------------------------------------------------------------------------\\
+    //----------------------------------FUNCTIONS FOR DATABASE----------------------------------------\\
+    //------------------------------------------------------------------------------------------------\\  
     
     
     /**
@@ -313,18 +398,50 @@ public class indexer implements Runnable{
     }
     
     
+    /**
+     * This function serve multi threading
+     * @param linkIds 
+     */
     public void updateLinkStatus(ArrayList<Integer> linkIds){
         q.updateLinkStatus(linkIds);
     }
     
+    /**
+     * This function serve multi threading 
+     * @return 
+     */
     public Integer initFileCounter(){
         return 0;
     }
     
-    
+    /**
+     *  This function serve multi threading
+     * @return 
+     */
     public Query initQuery(){
         return qr;
     }
+    
+    /**
+     *  This function serve multi threading
+     * @return 
+     */
+    public Set initDictionary(){
+        setDictionary();
+        return dictionary;
+    }
+    
+
+
+    /**
+     *  This function serve multi threading
+     * @return 
+     */
+    public Map<String,Integer> initTotal(){
+        setTotal();
+        return total;
+    }
+
     
     
     /**
@@ -333,15 +450,22 @@ public class indexer implements Runnable{
      * @return : number of words in the Document
      */
     public int getTotal(String link){
-        res = q.getTotal(link);
         
-        try {
-            if(res.next())
-                return res.getInt("total");
-        } catch (SQLException ex) {
-            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
+        int tot =0;
+        try{
+        tot = total.get(link);
+        }catch(NullPointerException e ){System.err.println("error with link : "+link);}
+        return tot;
+        
+//        res = q.getTotal(link);
+//        
+//        try {
+//            if(res.next())
+//                return res.getInt("total");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return 0;
     }
     
     
@@ -369,7 +493,7 @@ public class indexer implements Runnable{
     }
     
     
-
+    
     /**
      * This function is responsible for getting the Positions where i can find specific word in specific Document
      * @param link: the specific word
@@ -392,21 +516,21 @@ public class indexer implements Runnable{
         return (ArrayList<Integer>) positions;
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * This function is responsible for counting how many times can i find specific word in specific document
@@ -456,11 +580,9 @@ public class indexer implements Runnable{
         
     }
     
-    
+    @Override
     public void run() {
-        indexFiles();
-        
-        
+        indexFiles(); 
     }
     
     
