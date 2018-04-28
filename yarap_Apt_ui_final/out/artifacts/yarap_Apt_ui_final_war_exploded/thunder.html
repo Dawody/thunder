@@ -30,20 +30,59 @@
     .grid-container {display: grid;justify-content: center;grid-template-columns: 50% 30%;margin-left:10%;}
     
     </style>
-    
+    <script language="javascript" type="text/javascript">
+
+      var xMLHttpRequest =new XMLHttpRequest();
+      function myf() {
+          xMLHttpRequest.open("GET","auto_complete_Servlet?home_search="+document.getElementById("home_search").value,true);
+          xMLHttpRequest.onreadystatechange=myf2;
+      xMLHttpRequest.send(null);
+      }
+      function myf2() {
+       if(xMLHttpRequest.readyState==4 && xMLHttpRequest.status==200)
+       {
+           var jsondata_obj=eval( '('+ xMLHttpRequest.responseText+')');
+           var div=document.getElementById("suggest");
+           div.innerHTML="";
+           var headrow=div.insertRow(0);
+           var headcell=headrow.insertCell(0);
+           headcell.style.backgroundColor="lightblue";
+           headcell.innerHTML=jsondata_obj.topic.name;
+           var tutorials=jsondata_obj.topic.tutorial;
+           if(tutorials.length>0) console.log("11111111111111111111111111111111");
+           else console.log("000000000000000000000000000");
+           var i=0;
+           while (i<tutorials.length){
+               row=div.insertRow(i+1);
+               cell=row.insertCell(0);
+               cell.innerHTML=tutorials[i++].name;
+           }
+       }
+       else {console.log("xfgxxxxxxxxxxxxxxxxxxxxxxxxxxx");}
+      }
+    </script>
+    <!--<script>
+        function myf() {
+            var x=document.getElementById("home_search");
+            x.value=x.value.toUpperCase();
+        }
+    </script>-->
 </head>
     <body>
          <img  src="css/images/logo.png" style="margin-left: 17%;" class="img_home">
-        <form  action="Search_page" method="GET">
+        <form  action="paging" method="GET">
             <div class="grid-container">
-        <input type="text" style="width:70%;" class="form-control input-lg" id="home_search" required placeholder="Search for.." name="home_search">
-            <input type="submit" style="width: 30%;" class="btn btn-info" id="home_search_bt"   value="Search" name="home_search_bt">
+        <input type="text"  style="width:70%;" class="form-control input-lg" id="home_search" onchange="myf()" required placeholder="Search for.." name="home_search">
+                <input type="hidden" name="page" value="1">
+                <input type="submit" style="width: 30%;" class="btn btn-info" id="home_search_bt"   value="Search" name="home_search_bt">
             </div>
+            <br>
+            <table id="suggest" style="background-color: white; border: 1px solid black"></table>
         </form>
             <br>
             <form action="Regular_search" method="GET">
             <div class="grid-container">
-                <input type="text" style="width:70%;" class="form-control input-lg" required id="home_rsearch" placeholder="Regular Search for.." name="home_rsearch">
+                <input type="search" style="width:70%;" class="form-control input-lg" required id="home_rsearch" placeholder="Regular Search for.." name="home_rsearch">
                 <input type="submit" style="width:40%;" class="btn btn-info" value="Regular Search" name="home_Rsearch_bt">
                 </div>
         </form>
