@@ -8,6 +8,7 @@ package thunder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ public class Thunder {
         Query qr = indx.initQuery();
         Set dictionary = indx.initDictionary();
         Map<String,Integer> total = indx.initTotal();        
+ 
         
         
 //TEST insertion
@@ -100,7 +102,7 @@ public class Thunder {
             writer.print(mp.getKey()+"   "+mp.getValue()+"\n");
         }
         
-        
+
         
         writer.close();
         
@@ -111,6 +113,33 @@ public class Thunder {
 
 
 
+        
+        
+        
+        //General TEST FOR GETCOUNT
+//        List<String> links = new ArrayList<String>();
+//        String original = "code";
+//        int x=0;
+//        links = indx.getLink(original,1);
+//        for(String link :links){
+//            x++;
+//            System.out.println("link : "+link);
+//            System.out.println(x + " numer of total words in Document is "+indx.getTotal(link));
+//        }
+//        Map<String,Integer> mp ;
+//        mp = indx.getCount((ArrayList<String>) links,original,0);
+//        for(Map.Entry<String,Integer> entry : mp.entrySet())
+//        {
+//                    System.out.println(" numer of counts in Document "+entry.getKey()+" is "+entry.getValue());
+//        }
+
+
+        
+        
+        
+        
+        
+        
 
 //
 //TEST select link where stemmed_word or original_word =some_value

@@ -16,6 +16,7 @@ import java.io.IOException;
 import static java.lang.reflect.Array.set;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -172,10 +173,10 @@ try{
         
     }
 
-    
-    
-    
-    
+
+
+
+
     /**
      * needs:
      * Make SURE that parsing is perfect
@@ -441,7 +442,7 @@ try{
         setTotal();
         return total;
     }
-
+    
     
     
     /**
@@ -533,30 +534,38 @@ try{
     
     
     /**
-     * This function is responsible for counting how many times can i find specific word in specific document
-     * @param link : the specific Document
+     * This function is responsible for counting how many times can i find specific word in list of documents
+     * @param links : list of documents where i need to count how times i find specific word in them
      * @param word : the specific word that can be either stemmed_word or an original_word
      * @param type : if 0 then word is stemmed_word else it's an original_word
-     * @return : how many times can i find specific word in specific document
+     * @return : Map of links and number of how many times can i find the word into each link
      */
-    public int getCount(String link , String word , int type){
-        res = q.getCount(link,word,type);
-        
+    public Map<String,Integer> getCount(ArrayList<String> links , String word , int type){
+        res = q.getCount(links,word,type);
+        Map<String , Integer> mp =  new HashMap<String, Integer>();
+        String link;
         try {
-            if(res.next())
-                return res.getInt("count(*)");
+            while(res.next())
+            {
+                link = res.getString("link");
+                if(mp.get(link)==null)
+                    mp.put(link, 1);
+                else
+                    mp.put(link, mp.get(link)+1);
+                
+            }
         } catch (SQLException ex) {
             Logger.getLogger(indexer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return mp;
     }
     
     
-    
-    
-    
-    
-    
+
+
+
+
+
     
     
     

@@ -207,18 +207,26 @@ public class Query {
     
     /**
      * This function is responsible for counting how many times can i find specific word in specific document
+     * I assume that ArrayList<String> links MUST NOT be empty!
      * @param link : the specific Document
      * @param word : the specific word that can be either stemmed_word or an original_word
      * @param type : if 0 then word is stemmed_word else it's an original_word
      * @return : how many times can i find specific word in specific document
      */
-    public ResultSet getCount(String link , String word,int type){
-        if(type==0)
-            q = "select count(*) from indexer where stem=? and link=?";
-        else
-            q = "select count(*) from indexer where original=? and link=?";
+    public ResultSet getCount(ArrayList<String> links , String word,int type){
+        String qLinks ="( link=? "; 
+        for(int i =1 ; i<links.size() ; i++)
+        {
+            qLinks+="or link=? ";
+        }
+        qLinks+=")";
         
-        res = dbman.execute(q , word, link);
+        if(type==0)
+            q = "select link from indexer where stem=? and "+qLinks;
+        else
+            q = "select link from indexer where original=? and "+qLinks;
+        
+        res = dbman.execute(q , word, links);
         
         return res;
         

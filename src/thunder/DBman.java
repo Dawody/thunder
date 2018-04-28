@@ -225,7 +225,7 @@ public class DBman {
         //conn="jdbc:mariadb://localhost:3306/thunder";
         conn="jdbc:mariadb://localhost:3306/thunder?useServerPrepStmts=false&rewriteBatchedStatements=true&rewriteBatchUpdates=true&integratedSecurity=true";
         try {
-            myconn = DriverManager.getConnection(conn,"root","");
+            myconn = DriverManager.getConnection(conn,"root","dawod@SQL");
         } catch (SQLException ex) {
             Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -469,7 +469,14 @@ public class DBman {
         return null;
     }
     
-    
+    /**
+     * the old function for getCount
+     * Don't delete it!
+     * @param query
+     * @param word
+     * @param link
+     * @return 
+     */
     public ResultSet execute(String query,String word,String link){
         
         if(conn!=null)
@@ -488,6 +495,42 @@ public class DBman {
         }
         return null;
     }
+    
+    /**
+     * the new function for getCount
+     * @param query
+     * @param word
+     * @param link
+     * @return 
+     */
+    public ResultSet execute(String query,String word,ArrayList<String> links){
+        
+        if(conn!=null)
+        {
+            try {
+                java.sql.PreparedStatement mypstm=  myconn.prepareStatement(query);
+                int counter =1;
+                mypstm.setString(counter,word);
+                
+                for(String link : links)
+                {
+                    counter++;
+                    mypstm.setString(counter, link);
+                }
+                myres=mypstm.executeQuery();
+                return myres;
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(DBman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    
+    
+    
+    
     
     
     public ResultSet execute(String query){
