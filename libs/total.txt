@@ -67,6 +67,7 @@ http://www.geeksforgeeks.org/c-plus-plus/   2196
 http://www.geeksforgeeks.org/medium/   1655
 https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-2-expected-linear-time/   1198
 http://www.geeksforgeeks.org/divide-and-conquer/   891
+http://www.facebook.com/sharer.php?u=https://www.geeksforgeeks.org/randomized-algorithms/   1100
 http://www.geeksforgeeks.org/backtracking-algorithms/   786
 https://www.geeksforgeeks.org/about/   549
 http://www.geeksforgeeks.org/detect-negative-cycle-graph-bellman-ford/   2001
@@ -233,6 +234,7 @@ https://www.geeksforgeeks.org/category/algorithm/pattern-searching/   999
 https://www.geeksforgeeks.org/category/algorithm/bit-magic/   1001
 https://www.geeksforgeeks.org/page/4/   1017
 https://creativecommons.org/licenses/by-sa/4.0/   535
+http://www.linkedin.com/shareArticle?mini=true&url=https://www.geeksforgeeks.org/geeks-classes-geeksforgeeks/   41
 https://www.geeksforgeeks.org/tag/amazon/   1033
 https://www.geeksforgeeks.org/category/programming-language/cpp/   950
 http://www.geeksforgeeks.org/python/   1396
@@ -254,6 +256,7 @@ https://www.geeksforgeeks.org/generate-integer-from-1-to-7-with-equal-probabilit
 https://www.geeksforgeeks.org/category/programming-language/   977
 https://practice.geeksforgeeks.org/contests/   327
 https://www.geeksforgeeks.org/page/5/   1020
+https://plus.google.com/share?url=https://www.geeksforgeeks.org/geeks-classes-geeksforgeeks/   110
 http://www.geeksforgeeks.org/java/   2035
 http://www.geeksforgeeks.org/quizzes-on-programming-languages-gq/   588
 https://www.geeksforgeeks.org/tag/prime-factor/   945
