@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eca16644-9d02-4e35-9f93-cf56c1318e87" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/thunder/Query_obj.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/thunder/DBman.java" afterPath="$PROJECT_DIR$/src/thunder/DBman.java" />
       <change beforePath="$PROJECT_DIR$/src/thunder/Popularity.java" afterPath="$PROJECT_DIR$/src/thunder/Popularity.java" />
       <change beforePath="$PROJECT_DIR$/src/thunder/Ranker.java" afterPath="$PROJECT_DIR$/src/thunder/Ranker.java" />
       <change beforePath="$PROJECT_DIR$/src/thunder/Relevance.java" afterPath="$PROJECT_DIR$/src/thunder/Relevance.java" />
-      <change beforePath="$PROJECT_DIR$/thunder.iml" afterPath="$PROJECT_DIR$/thunder.iml" />
-      <change beforePath="$PROJECT_DIR$/thunder.sql" afterPath="$PROJECT_DIR$/thunder.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,113 +33,20 @@
       <file leaf-file-name="Ranker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="44" column="9" lean-forward="true" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+            <state relative-caret-position="483">
+              <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#415#416#0" expanded="true" />
-                <element signature="e#447#448#0" expanded="true" />
-                <element signature="e#477#478#0" expanded="true" />
-                <element signature="e#510#511#0" expanded="true" />
-                <element signature="e#553#554#0" expanded="true" />
-                <element signature="e#586#587#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Relevance.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="88" column="75" lean-forward="false" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="75" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1142#1150#0" expanded="true" />
-                <element signature="e#2074#2082#0" expanded="true" />
-                <element signature="e#2145#2153#0" expanded="true" />
-                <element signature="e#2219#2227#0" expanded="true" />
-                <element signature="e#2294#2302#0" expanded="true" />
-                <element signature="e#3993#4003#0" expanded="true" />
-                <element signature="e#4055#4063#0" expanded="true" />
-                <element signature="e#5986#5996#0" expanded="true" />
-                <element signature="e#6048#6058#0" expanded="true" />
-                <element signature="e#6112#6128#0" expanded="true" />
-                <element signature="e#7258#7281#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Popularity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/thunder/Popularity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="93" column="40" lean-forward="true" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2240#2250#0" expanded="true" />
-                <marker date="1524879289151" expanded="true" signature="5369:5406" ph="UPDATE links... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExceptionMapper.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/libs/mariadb-java-client-2.2.3.jar!/org/mariadb/jdbc/internal/util/exceptions/ExceptionMapper.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-              <folding>
-                <element signature="e#6216#6217#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MariaDbPreparedStatementClient.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/libs/mariadb-java-client-2.2.3.jar!/org/mariadb/jdbc/MariaDbPreparedStatementClient.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="233" column="0" lean-forward="true" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBman.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thunder/DBman.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="28" selection-end-line="159" selection-end-column="34" />
-              <folding>
-                <marker date="1524876542854" expanded="true" signature="1037:1067" ph="SELECT id FR... counter" />
-                <marker date="1524876542854" expanded="true" signature="1332:1376" ph="SELECT id FR... links" />
-                <marker date="1524876542854" expanded="true" signature="1696:1733" ph="SELECT visit... links" />
-                <marker date="1524876542854" expanded="true" signature="1961:1997" ph="UPDATE counter... " />
-                <marker date="1524876542854" expanded="true" signature="2157:2198" ph="UPDATE counter... " />
-                <marker date="1524876542854" expanded="true" signature="2402:2454" ph="INSERT IGNOR... links" />
-                <marker date="1524876542854" expanded="true" signature="2749:2793" ph="SELECT id FR... links" />
-                <marker date="1524876542854" expanded="true" signature="3050:3098" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="3390:3458" ph="SELECT * FRO... links" />
-                <marker date="1524876542854" expanded="true" signature="3725:3780" ph="SELECT * FRO... links" />
-                <marker date="1524876542854" expanded="true" signature="4124:4182" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="4266:4344" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="4386:4426" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="4686:4728" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="4938:4980" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="5261:5408" ph="UPDATE links... " />
-                <marker date="1524876542854" expanded="true" signature="5462:5492" ph="UPDATE links... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicWebCrawler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thunder/BasicWebCrawler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+            <state relative-caret-position="441">
+              <caret line="119" column="13" lean-forward="false" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,17 +54,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Thunder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thunder/Thunder.java">
+      <file leaf-file-name="indexer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+            <state relative-caret-position="7266">
+              <caret line="377" column="13" lean-forward="false" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -174,6 +86,7 @@
       <find>myconn</find>
       <find>executeBatch</find>
       <find>update</find>
+      <find>TfidfOut</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,11 +103,12 @@
         <option value="$PROJECT_DIR$/src/thunder/BasicWebCrawler.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/thunder/Query.java" />
-        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
         <option value="$PROJECT_DIR$/thunder.sql" />
         <option value="$PROJECT_DIR$/src/thunder/DBman.java" />
         <option value="$PROJECT_DIR$/src/thunder/Popularity.java" />
+        <option value="$PROJECT_DIR$/src/thunder/Query_obj.java" />
         <option value="$PROJECT_DIR$/src/thunder/Ranker.java" />
+        <option value="$PROJECT_DIR$/src/thunder/Relevance.java" />
       </list>
     </option>
   </component>
@@ -244,6 +158,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -262,19 +179,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="thunder" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="thunder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="thunder" type="462c0819:PsiDirectoryNode" />
-              <item name="yarap_Apt_ui_final" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -470,12 +379,13 @@
       <workItem from="1524221878695" duration="3359000" />
       <workItem from="1524505034059" duration="46054000" />
       <workItem from="1524728605453" duration="9553000" />
-      <workItem from="1524780365491" duration="51307000" />
+      <workItem from="1524780365491" duration="54552000" />
+      <workItem from="1524913517344" duration="555000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110273000" />
+    <option name="totallyTimeSpent" value="114073000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -483,30 +393,30 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3645008" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35023773" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -519,23 +429,45 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7917">
+          <caret line="377" column="13" lean-forward="true" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2079">
+          <caret line="99" column="77" lean-forward="false" selection-start-line="99" selection-start-column="77" selection-end-line="99" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="28" column="37" lean-forward="false" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#553#554#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -546,17 +478,6 @@
           <caret line="71" column="45" lean-forward="false" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1142#1150#0" expanded="true" />
-            <element signature="e#2074#2082#0" expanded="true" />
-            <element signature="e#2145#2153#0" expanded="true" />
-            <element signature="e#2219#2227#0" expanded="true" />
-            <element signature="e#2294#2302#0" expanded="true" />
-            <element signature="e#3993#4003#0" expanded="true" />
-            <element signature="e#4055#4063#0" expanded="true" />
-            <element signature="e#5986#5996#0" expanded="true" />
-            <element signature="e#6048#6058#0" expanded="true" />
-            <element signature="e#6112#6128#0" expanded="true" />
-            <element signature="e#7258#7281#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -574,7 +495,7 @@
         <state relative-caret-position="609">
           <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -584,9 +505,9 @@
         <state relative-caret-position="3024">
           <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2240#2250#0" expanded="true" />
-            <marker date="1524879289151" expanded="true" signature="5369:5406" ph="UPDATE links... " />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2194#2204#0" expanded="false" />
+            <marker date="1524881946024" expanded="true" signature="5323:5360" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -597,12 +518,6 @@
           <caret line="30" column="40" lean-forward="false" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#553#554#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -612,9 +527,9 @@
         <state relative-caret-position="2793">
           <caret line="133" column="16" lean-forward="false" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2240#2250#0" expanded="true" />
-            <marker date="1524879289151" expanded="true" signature="5369:5406" ph="UPDATE links... " />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2194#2204#0" expanded="false" />
+            <marker date="1524881946024" expanded="true" signature="5323:5360" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -632,7 +547,7 @@
         <state relative-caret-position="4074">
           <caret line="194" column="23" lean-forward="false" selection-start-line="194" selection-start-column="23" selection-end-line="194" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -669,17 +584,6 @@
           <caret line="111" column="86" lean-forward="true" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1142#1150#0" expanded="true" />
-            <element signature="e#2074#2082#0" expanded="true" />
-            <element signature="e#2145#2153#0" expanded="true" />
-            <element signature="e#2219#2227#0" expanded="true" />
-            <element signature="e#2294#2302#0" expanded="true" />
-            <element signature="e#3993#4003#0" expanded="true" />
-            <element signature="e#4055#4063#0" expanded="true" />
-            <element signature="e#5986#5996#0" expanded="true" />
-            <element signature="e#6048#6058#0" expanded="true" />
-            <element signature="e#6112#6128#0" expanded="true" />
-            <element signature="e#7258#7281#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -690,12 +594,6 @@
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#553#554#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -705,9 +603,9 @@
         <state relative-caret-position="210">
           <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2240#2250#0" expanded="true" />
-            <marker date="1524879289151" expanded="true" signature="5369:5406" ph="UPDATE links... " />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2194#2204#0" expanded="false" />
+            <marker date="1524881946024" expanded="true" signature="5323:5360" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>
@@ -725,7 +623,7 @@
         <state relative-caret-position="294">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -736,17 +634,6 @@
           <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1142#1150#0" expanded="true" />
-            <element signature="e#2074#2082#0" expanded="true" />
-            <element signature="e#2145#2153#0" expanded="true" />
-            <element signature="e#2219#2227#0" expanded="true" />
-            <element signature="e#2294#2302#0" expanded="true" />
-            <element signature="e#3993#4003#0" expanded="true" />
-            <element signature="e#4055#4063#0" expanded="true" />
-            <element signature="e#5986#5996#0" expanded="true" />
-            <element signature="e#6048#6058#0" expanded="true" />
-            <element signature="e#6112#6128#0" expanded="true" />
-            <element signature="e#7258#7281#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -783,7 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -801,19 +687,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Data.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yarap_Apt_ui_final/src/Query_object.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="5" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="7" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -821,9 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="371" column="0" lean-forward="false" selection-start-line="371" selection-start-column="0" selection-end-line="371" selection-end-column="0" />
-          <folding>
-            <element signature="e#13945#13946#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,15 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="420" column="13" lean-forward="true" selection-start-line="420" selection-start-column="13" selection-end-line="420" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -864,28 +729,7 @@
         <state relative-caret-position="21">
           <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="88" column="75" lean-forward="false" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1142#1150#0" expanded="true" />
-            <element signature="e#2074#2082#0" expanded="true" />
-            <element signature="e#2145#2153#0" expanded="true" />
-            <element signature="e#2219#2227#0" expanded="true" />
-            <element signature="e#2294#2302#0" expanded="true" />
-            <element signature="e#3993#4003#0" expanded="true" />
-            <element signature="e#4055#4063#0" expanded="true" />
-            <element signature="e#5986#5996#0" expanded="true" />
-            <element signature="e#6048#6058#0" expanded="true" />
-            <element signature="e#6112#6128#0" expanded="true" />
-            <element signature="e#7258#7281#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -894,22 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="16" column="41" lean-forward="false" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-          <folding>
-            <marker date="1524871995895" expanded="true" signature="74:159" ph="CREATE TABLE... counter" />
-            <marker date="1524871995895" expanded="true" signature="162:535" ph="CREATE TABLE... links" />
-            <marker date="1524871995895" expanded="true" signature="538:631" ph="CREATE TABLE... queries" />
-            <marker date="1524871995895" expanded="true" signature="634:943" ph="create table... indexer" />
-            <marker date="1524871995895" expanded="true" signature="948:1031" ph="ALTER TABLE `counter`... " />
-            <marker date="1524871995895" expanded="true" signature="1034:1078" ph="ALTER TABLE `links`... " />
-            <marker date="1524871995895" expanded="true" signature="1082:1165" ph="ALTER TABLE `links`... " />
-            <marker date="1524871995895" expanded="true" signature="1175:1213" ph="ALTER TABLE `links`... " />
-            <marker date="1524871995895" expanded="true" signature="1216:1264" ph="ALTER TABLE `queries`... " />
-            <marker date="1524871995895" expanded="true" signature="1267:1598" ph="CREATE TABLE... in_out" />
-            <marker date="1524871995895" expanded="true" signature="1600:1639" ph="ALTER TABLE `in_out`... " />
-            <marker date="1524871995895" expanded="true" signature="1641:1680" ph="ALTER TABLE `in_out`... " />
-            <marker date="1524871995895" expanded="true" signature="1684:1725" ph="INSERT INTO `counter`... " />
-            <marker date="1524871995895" expanded="true" signature="1727:1880" ph="INSERT INTO `links`... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -943,9 +771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-          <folding>
-            <element signature="e#6216#6217#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -953,34 +778,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="233" column="0" lean-forward="true" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Popularity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2194#2204#0" expanded="false" />
+            <marker date="1524881946024" expanded="true" signature="5323:5360" ph="UPDATE links... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Query_obj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thunder/Ranker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="44" column="9" lean-forward="true" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+        <state relative-caret-position="483">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#553#554#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thunder/Popularity.java">
+    <entry file="file://$PROJECT_DIR$/src/thunder/indexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="93" column="40" lean-forward="true" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
+        <state relative-caret-position="7266">
+          <caret line="377" column="13" lean-forward="false" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thunder/Relevance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="119" column="13" lean-forward="false" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2240#2250#0" expanded="true" />
-            <marker date="1524879289151" expanded="true" signature="5369:5406" ph="UPDATE links... " />
           </folding>
         </state>
       </provider>

@@ -8,9 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.regex.Matcher;
 
-public class Popularity extends Ranker{ // PageRank algorithm, score for edges between nodes
+public class Popularity { // PageRank algorithm, score for edges between nodes
     static double InitialScore = 1;
 
     private class LinkNode {

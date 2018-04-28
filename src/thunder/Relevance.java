@@ -1,7 +1,6 @@
 package thunder;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.Map.Entry;
 
 //I will use stemmer(String word)-> to stem query words,
@@ -9,26 +8,16 @@ import java.util.Map.Entry;
 // getTotal(String link)-> to get total number of words in the document,
 // getCount(String link , String word , int type)-> to get number of occurrences in the document
 
-public class Relevance extends Ranker{ // TF-IDF score for keywords in query found in the document
+public class Relevance { // TF-IDF score for keywords in query found in the document
     private indexer ind;
     private DBman db;
-    protected static class Query_obj {
-        private String query;
-        private String []query_words;
-        private int ph;
 
-        public Query_obj (String s, String []qu,int p)
-        { this.query = s; this.query_words=qu; this.ph=p; }
-        public String getQuery() { return query; }
-        public int getPh(){ return ph; }
-        public String [] getQuery_words(){ return query_words; }
-    }
     Relevance()
     {
         ind = new indexer();
         db = new DBman();
     }
-    public ArrayList<String> decide(Q_Obj qb)
+    public ArrayList<String> decide(Query_obj qb)
     {
         ArrayList<String> o = new ArrayList<String>();
         int x = qb.getPh();
@@ -44,16 +33,19 @@ public class Relevance extends Ranker{ // TF-IDF score for keywords in query fou
         }
         return o;
     }
-    private class TfidfOut {
-        private String link;
-        private double score;
-        private boolean flag;
+    private class phraseObj {
+        private String word;
+        private ArrayList<String> links = new ArrayList<String>();
+        private ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>();
 
-        private TfidfOut(String l, double s, boolean b) { this.link = l; this.score = s; this.flag = b;}
-        public String getLink() { return link; }
-        public double getScore() { return score; }
-        public void setFlag(boolean flag) { this.flag = flag; }
-        public boolean getFlag() { return flag; }
+        private phraseObj(String w) { this.word = w; }
+        public void setLinks(ArrayList<String> links) { this.links = links; }
+        public void setPositions(ArrayList<Integer> positions) { this.positions.add(positions); }
+        public ArrayList<ArrayList<Integer>> getPositions() { return positions; }
+        public ArrayList<String> getLinks() { return links; }
+        public ArrayList<Integer> getPosition(int i) { return positions.get(i); }
+        public String getLink(int i) { return links.get(i); }
+        public String getWord() { return word; }
     }
 
     private class TfidfObj {
@@ -91,7 +83,13 @@ public class Relevance extends Ranker{ // TF-IDF score for keywords in query fou
     }
 
     private ArrayList<String> phraseSearch(String[] query) {
-
+        for(int j = 0; j < query.length; j++) {
+            phraseObj o = new phraseObj(query[j]);
+            o.setLinks(ind.getLink(query[j], 1));
+            for(int i = 0;i<o.getLinks().size();i++) {
+                o.setPositions(ind.getPositions(o.getLink(i),query[j],1));
+            }
+        }
         return null;
     }
 
@@ -147,8 +145,6 @@ public class Relevance extends Ranker{ // TF-IDF score for keywords in query fou
     }
 
     private void tf_idf(ArrayList<TfidfObj> d, ArrayList<String> outp) {
-        ArrayList<TfidfOut> not_sett = new ArrayList<TfidfOut>();
-        ArrayList<TfidfOut> sett = new ArrayList<TfidfOut>();
         Map<String, Double> set_outp = new HashMap<String, Double>();
         TfidfObj ob1;
         ArrayList<String> ob2,ob3;
