@@ -70,7 +70,7 @@ public class indexer implements Runnable{
      * actually i use it to call function getLinkStatus()
      */
     public indexer(){
-
+        setTotal();
     }
     
     /**
@@ -595,7 +595,11 @@ try{
     }
     
     
-    
+    public  Map<String, Integer> getStopWords(){
+        setStopWordList();
+        return stopWordList;
+    }
+
     
     
     
